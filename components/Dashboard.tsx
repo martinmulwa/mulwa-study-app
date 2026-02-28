@@ -1,11 +1,13 @@
 
 import React, { useMemo, useState } from 'react';
-import { UserProgress } from '../types';
+import { UserProgress, UserLog } from '../types';
 import { TOTAL_LEVELS } from '../data/questions';
 import { MNEMONICS, STUDY_SCHEDULE, STUDY_TECHNIQUES, LEITNER_SYSTEM } from '../data/toolkit';
-import { Lock, Zap, TrendingUp, AlertCircle, BookOpen, Star, Trash2, Calendar, Lightbulb, Brain, ChevronRight, Award, Flame, Target } from 'lucide-react';
+import { Lock, Zap, TrendingUp, AlertCircle, BookOpen, Star, Trash2, Calendar, Lightbulb, Brain, ChevronRight, Award, Flame, Target, ShieldCheck, Users, BarChart3, Clock, MapPin } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 
 interface DashboardProps {
+  username: string;
   progress: UserProgress;
   onSelectLevel: (level: number) => void;
   onResetProgress: () => void;
@@ -19,8 +21,29 @@ interface DashboardProps {
  * 
  * @author Mulwa
  */
-export const Dashboard: React.FC<DashboardProps> = ({ progress, onSelectLevel, onResetProgress }) => {
-  const [activeTab, setActiveTab] = useState<'campaign' | 'toolkit'>('campaign');
+export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSelectLevel, onResetProgress }) => {
+  const [activeTab, setActiveTab] = useState<'campaign' | 'toolkit' | 'admin'>('campaign');
+  const [logs, setLogs] = useState<UserLog[]>([]);
+  const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+
+  const isAdmin = username.toLowerCase() === 'admin';
+
+  // Fetch logs if admin
+  React.useEffect(() => {
+    if (isAdmin && activeTab === 'admin') {
+      setIsLoadingLogs(true);
+      fetch('/api/logs')
+        .then(res => res.json())
+        .then(data => {
+          setLogs(data);
+          setIsLoadingLogs(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch logs:", err);
+          setIsLoadingLogs(false);
+        });
+    }
+  }, [isAdmin, activeTab]);
   
   // Calculate weak areas based on correct/total ratio
   const weakAreas = useMemo(() => {
@@ -137,6 +160,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ progress, onSelectLevel, o
             Revision Toolkit
             {activeTab === 'toolkit' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary-600 rounded-t-full"></div>}
           </button>
+          {isAdmin && (
+            <button 
+              onClick={() => setActiveTab('admin')}
+              className={`pb-4 px-2 font-black text-xs uppercase tracking-[0.2em] transition-all relative ${activeTab === 'admin' ? 'text-rose-600' : 'text-slate-400 hover:text-slate-600'}`}
+            >
+              Admin Panel
+              {activeTab === 'admin' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-rose-600 rounded-t-full"></div>}
+            </button>
+          )}
         </div>
 
         {activeTab === 'campaign' ? (
@@ -195,7 +227,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ progress, onSelectLevel, o
               })}
             </div>
           </div>
-        ) : (
+        ) : activeTab === 'toolkit' ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Mnemonics */}
             <div className="lg:col-span-2 space-y-10">
@@ -289,6 +321,128 @@ export const Dashboard: React.FC<DashboardProps> = ({ progress, onSelectLevel, o
               </div>
             </div>
           </div>
+        ) : (
+          <div className="space-y-10 animate-slide-up">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-display font-black text-slate-900 flex items-center gap-3">
+                <div className="bg-rose-100 p-2 rounded-xl text-rose-600">
+                  <ShieldCheck size={20} />
+                </div>
+                Admin Dashboard
+              </h3>
+              <div className="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Logs: </span>
+                <span className="text-sm font-black text-rose-600">{logs.length}</span>
+              </div>
+            </div>
+
+            {/* Admin Stats Visualization */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
+                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
+                  <BarChart3 size={14} /> User Activity (Last 10)
+                </h4>
+                <div className="h-64 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={logs.slice(-10)}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                      <XAxis dataKey="username" hide />
+                      <YAxis hide />
+                      <Tooltip 
+                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                        cursor={{ fill: '#f8fafc' }}
+                      />
+                      <Bar dataKey="xp" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
+                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
+                  <Users size={14} /> Level Distribution
+                </h4>
+                <div className="h-64 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={Object.entries(logs.reduce((acc, log) => {
+                          acc[log.level] = (acc[log.level] || 0) + 1;
+                          return acc;
+                        }, {} as Record<number, number>)).map(([level, count]) => ({ name: `Level ${level}`, value: count }))}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                      >
+                        {logs.map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][index % 5]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+
+            {/* Logs Table */}
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100">
+              <div className="p-8 border-b border-slate-50 flex justify-between items-center">
+                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">User Access Logs</h4>
+                {isLoadingLogs && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>}
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50">
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">User</th>
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">Timestamp</th>
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">Level</th>
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">XP</th>
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">IP Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {logs.length > 0 ? [...logs].reverse().map((log, i) => (
+                      <tr key={i} className="border-t border-slate-50 hover:bg-slate-50/50 transition-colors">
+                        <td className="p-6">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-black text-xs">
+                              {log.username[0].toUpperCase()}
+                            </div>
+                            <span className="text-sm font-black text-slate-700">{log.username}</span>
+                          </div>
+                        </td>
+                        <td className="p-6">
+                          <div className="flex items-center gap-2 text-slate-500">
+                            <Clock size={14} />
+                            <span className="text-xs font-medium">{new Date(log.timestamp).toLocaleString()}</span>
+                          </div>
+                        </td>
+                        <td className="p-6">
+                          <span className="text-xs font-black text-primary-600 bg-primary-50 px-2 py-1 rounded-lg">Lvl {log.level}</span>
+                        </td>
+                        <td className="p-6 text-sm font-bold text-slate-600">{log.xp} XP</td>
+                        <td className="p-6">
+                          <div className="flex items-center gap-2 text-slate-400">
+                            <MapPin size={14} />
+                            <span className="text-xs font-mono">{log.ip || 'Unknown'}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    )) : (
+                      <tr>
+                        <td colSpan={5} className="p-12 text-center text-slate-400 italic text-sm">No logs found.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         )}
         
         {/* Footer / Reset Area */}
@@ -300,7 +454,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ progress, onSelectLevel, o
                 <Trash2 size={16} />
                 Reset All Progress
             </button>
-            <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">Created by Mulwa</p>
+            <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">MULWA 😎</p>
         </div>
       </div>
     </div>

@@ -136,7 +136,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
       
       {/* Footer Credit */}
       <div className="absolute bottom-6 text-slate-400 text-xs font-bold uppercase tracking-[0.2em]">
-        Created by Mulwa
+        MULWA 😎
       </div>
     </div>
   );

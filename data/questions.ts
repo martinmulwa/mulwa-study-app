@@ -16,7 +16,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Organ — an organ is made of two or more different tissues working together (e.g. the heart is made of cardiac muscle tissue, connective tissue, and nerve tissue). Even more complex than a tissue.",
       "System — a system (e.g. digestive system, nervous system) is the largest level of organisation, made of several organs working together. The complete opposite of 'basic.'"
     ],
-    memoryTip: "'Clever Tigers Often Swim' = Cell, Tissue, Organ, System. Cell is always first because it is the smallest and most basic."
+    memoryTip: "'Clever Tigers Often Swim' = Cell, Tissue, Organ, System. Cell is always first because it is the smallest and most basic.",
+    difficulty: 1
   },
   {
     id: "Q2",
@@ -32,7 +33,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Protection — the skull protects the brain; the rib cage protects the heart and lungs; the vertebrae protect the spinal cord; the pelvis protects pelvic organs.",
       "Movement — bones act as levers that muscles pull on to create movement. Without bones, muscles would have nothing to pull against."
     ],
-    memoryTip: "All six skeletal functions — 'Seriously Protect My Blood So Move': Support, Protection, Movement, Blood cell production (red bone marrow), Storage of minerals (calcium and phosphorus), Metabolic function (energy storage in yellow marrow)."
+    memoryTip: "All six skeletal functions — 'Seriously Protect My Blood So Move': Support, Protection, Movement, Blood cell production (red bone marrow), Storage of minerals (calcium and phosphorus), Metabolic function (energy storage in yellow marrow).",
+    difficulty: 1
   },
   {
     id: "Q3",
@@ -47,7 +49,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Protection of organs — protection is primarily a function of the skeletal system (skull, rib cage, vertebral column). While abdominal muscles do provide some soft-tissue protection, this is not the muscular system's primary function.",
       "Production of blood cells — blood cell production (haematopoiesis) occurs in the red bone marrow inside certain bones. This is a skeletal system function.",
       "Storage of minerals — calcium and phosphorus are stored in bone (skeletal system). Muscles store glycogen (energy fuel) but not minerals."
-    ]
+    ],
+    difficulty: 1
   },
   {
     id: "Q4",
@@ -63,7 +66,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Smooth muscle — lines the walls of hollow organs and tubes (blood vessels, intestines, stomach, bladder, uterus). It is involuntary but does not have striations and is not found in the heart.",
       "Voluntary muscle — this is simply another name for skeletal muscle. Since heart muscle is involuntary (you cannot choose to stop it), it is by definition not voluntary muscle."
     ],
-    memoryTip: "'CARDIAC = CARDIO = HEART.' The word cardiac literally means 'relating to the heart' (from Greek kardia)."
+    memoryTip: "'CARDIAC = CARDIO = HEART.' The word cardiac literally means 'relating to the heart' (from Greek kardia).",
+    difficulty: 2
   },
   {
     id: "Q5",
@@ -78,7 +82,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Sensory and motor — these describe the direction of nerve signal travel. Sensory (afferent) carries signals toward the CNS; motor (efferent) carries commands away from the CNS. These are functional descriptions of nerve fibres, not the primary structural division.",
       "Sympathetic and parasympathetic — these are the two branches of the Autonomic Nervous System (ANS), which is itself a subdivision of the PNS. This is a third-level division, not the primary one.",
       "Somatic and autonomic — these are the two divisions of the peripheral nervous system specifically. A correct division, but it is the second level — a subdivision of the PNS — not the top-level primary division."
-    ]
+    ],
+    difficulty: 2
   },
   {
     id: "Q6",
@@ -94,7 +99,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Lung — part of the respiratory system. It exchanges gases (oxygen in, carbon dioxide out).",
       "Heart — part of the cardiovascular system. It pumps blood around the body."
     ],
-    memoryTip: "Digestive organs: Mouth → Pharynx → Esophagus → Stomach → Small intestine → Large intestine → Rectum → Anus. Accessory organs: Liver, Gallbladder, Pancreas."
+    memoryTip: "Digestive organs: Mouth → Pharynx → Esophagus → Stomach → Small intestine → Large intestine → Rectum → Anus. Accessory organs: Liver, Gallbladder, Pancreas.",
+    difficulty: 2
   },
   {
     id: "Q7",
@@ -109,7 +115,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pumping blood — this is the function of the heart (cardiovascular system). The lungs receive blood for oxygenation but do not pump it.",
       "Filtering waste — filtering blood waste is primarily the function of the kidneys (urinary system). While the lungs do remove CO₂ (a metabolic waste gas), they are not described primarily as a waste filtering organ.",
       "Producing hormones — this is the function of the endocrine system (pituitary, thyroid, adrenal glands, etc.). The respiratory system does not produce hormones."
-    ]
+    ],
+    difficulty: 1
   },
   {
     id: "Q8",
@@ -125,7 +132,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Nephrons — the microscopic functional units of the kidney that filter blood to form urine. They are kidney tissue structures, not blood cells.",
       "Alveoli — the tiny air sacs in the lungs where gas exchange occurs. They are respiratory structures, not blood components."
     ],
-    memoryTip: "'RWPP = Red, White, Platelets, Plasma.' None of the wrong options (neurons, nephrons, alveoli) are blood components — they each belong to a completely different organ system."
+    memoryTip: "'RWPP = Red, White, Platelets, Plasma.' None of the wrong options (neurons, nephrons, alveoli) are blood components — they each belong to a completely different organ system.",
+    difficulty: 2
   },
   {
     id: "Q9",
@@ -141,7 +149,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Kidneys and bladder — these form the urinary system.",
       "Stomach and intestines — these are part of the digestive system."
     ],
-    memoryTip: "'CARDIOvascular = CARDIO (heart) + VASCULAR (blood vessels).' The word itself tells you exactly what the system contains."
+    memoryTip: "'CARDIOvascular = CARDIO (heart) + VASCULAR (blood vessels).' The word itself tells you exactly what the system contains.",
+    difficulty: 1
   },
   {
     id: "Q10",
@@ -157,7 +166,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Adrenal gland — produces cortisol, aldosterone, and adrenaline. It is also controlled by the pituitary (via ACTH). Not the master.",
       "Pineal gland — produces melatonin, which regulates the sleep-wake cycle (circadian rhythm). It does not control other glands."
     ],
-    memoryTip: "'Pituitary = the Principal of the endocrine school — it tells all the other glands what to do.'"
+    memoryTip: "'Pituitary = the Principal of the endocrine school — it tells all the other glands what to do.'",
+    difficulty: 2
   },
   {
     id: "Q11",
@@ -173,7 +183,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Muscles and tendons — these form the muscular system. They are internal soft tissue structures.",
       "Nerves and brain — these form the nervous system. While sensory nerves do extend into the skin to provide sensation, the skin itself belongs to the integumentary system, not the nervous system."
     ],
-    memoryTip: "'INtegumentary = the body's INtegument (outer envelope/wrapper) = skin + hair + nails.'"
+    memoryTip: "'INtegumentary = the body's INtegument (outer envelope/wrapper) = skin + hair + nails.'",
+    difficulty: 1
   },
   {
     id: "Q12",
@@ -188,7 +199,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Liver — detoxifies the blood and converts ammonia to urea (which the kidneys then excrete as part of urine), but the liver does not filter blood the same way kidneys do and does not produce urine.",
       "Pancreas — produces digestive enzymes and hormones (insulin and glucagon). Has no role in blood filtration or urine production.",
       "Spleen — filters blood by removing old and damaged red blood cells, and is part of the lymphatic/immune system. However, it does not produce urine."
-    ]
+    ],
+    difficulty: 1
   },
   {
     id: "Q13",
@@ -204,7 +216,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Reproduction — reproduction is the function of the reproductive system.",
       "Respiration — gas exchange is the function of the respiratory system."
     ],
-    memoryTip: "'Lymph nodes = the body's security checkpoints.' They screen lymph fluid for pathogens, like security at an airport screening passengers."
+    memoryTip: "'Lymph nodes = the body's security checkpoints.' They screen lymph fluid for pathogens, like security at an airport screening passengers.",
+    difficulty: 2
   },
   {
     id: "Q14",
@@ -220,7 +233,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Ribs — the 12 pairs of ribs form the rib cage, which protects the heart and lungs.",
       "Pelvis — the hip bones protect the pelvic organs (bladder, uterus, rectum)."
     ],
-    memoryTip: "A skull cap/helmet is worn on your head to protect your brain. The skull IS the body's permanent, built-in helmet."
+    memoryTip: "A skull cap/helmet is worn on your head to protect your brain. The skull IS the body's permanent, built-in helmet.",
+    difficulty: 1
   },
   {
     id: "Q15",
@@ -236,7 +250,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Alveolus — the functional unit of the lungs. These are the tiny air sacs where gas exchange occurs.",
       "Sarcomere — the functional unit of muscle contraction, not the nervous system."
     ],
-    memoryTip: "The NANS rule for functional units: Neuron = Nervous system | Alveolus = Airways (lungs) | Nephron = kidNey | Sarcomere = Skeletal muscle."
+    memoryTip: "The NANS rule for functional units: Neuron = Nervous system | Alveolus = Airways (lungs) | Nephron = kidNey | Sarcomere = Skeletal muscle.",
+    difficulty: 2
   },
   {
     id: "Q16",
@@ -252,7 +267,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Cartilaginous joint — connected by cartilage (rubbery, flexible tissue). Allows limited movement but not full range. Examples: intervertebral discs between vertebrae, the pubic symphysis (front of the pelvis).",
       "Fixed joint — this is simply another name for a fibrous/immovable joint, the same concept as option A. Fixed = no movement."
     ],
-    memoryTip: "'Synovial = Smooth and Slippery.' Synovial fluid is the body's own lubricant. Lubricated = moves freely."
+    memoryTip: "'Synovial = Smooth and Slippery.' Synovial fluid is the body's own lubricant. Lubricated = moves freely.",
+    difficulty: 2
   },
   {
     id: "Q17",
@@ -268,7 +284,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Clot blood — blood clotting is the role of platelets and clotting factors such as fibrinogen. Red blood cells are not involved in initiating clotting.",
       "Produce antibodies — antibodies (immunoglobulins) are produced by B lymphocytes (specifically plasma cells, which are differentiated B lymphocytes). Red blood cells do not produce antibodies."
     ],
-    memoryTip: "When RBCs are full of oxygen, blood is bright red (oxyhaemoglobin). Low haemoglobin = anaemia = tiredness, paleness, and breathlessness, because tissues are not receiving enough oxygen."
+    memoryTip: "When RBCs are full of oxygen, blood is bright red (oxyhaemoglobin). Low haemoglobin = anaemia = tiredness, paleness, and breathlessness, because tissues are not receiving enough oxygen.",
+    difficulty: 1
   },
   {
     id: "Q18",
@@ -284,7 +301,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Cartilage — a firm, flexible connective tissue that covers the ends of bones at joints (articular cartilage) and acts as a shock absorber. It does not connect muscle to bone.",
       "Fascia — a sheet of connective tissue that wraps around and encloses muscles, providing organisation and separating muscle groups. It surrounds muscles but does not specifically attach them to bone."
     ],
-    memoryTip: "'Tendons = Tie muscle To bone (three T's). Ligaments = Link bone to bone (two L's).'"
+    memoryTip: "'Tendons = Tie muscle To bone (three T's). Ligaments = Link bone to bone (two L's).'",
+    difficulty: 2
   },
   {
     id: "Q19",
@@ -300,7 +318,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Veins — carry blood toward the heart. They are larger than capillaries, have thinner walls than arteries, and contain valves to prevent backflow (particularly important in the legs, where blood must travel against gravity).",
       "Venules — small veins that collect blood from capillaries and drain it into larger veins. They are larger than capillaries but smaller than veins — still not the smallest."
     ],
-    memoryTip: "'CAPillaries = CAPture the exchange.' All real substance exchange between blood and body tissues happens at the capillary level."
+    memoryTip: "'CAPillaries = CAPture the exchange.' All real substance exchange between blood and body tissues happens at the capillary level.",
+    difficulty: 2
   },
   {
     id: "Q20",
@@ -316,7 +335,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Medulla oblongata — the lowest part of the brainstem, controlling vital automatic functions like breathing, heart rate, and blood pressure. Not responsible for balance.",
       "Hypothalamus — deep inside the brain, it controls homeostasis — regulating body temperature, hunger, thirst, sleep cycles, and emotions. It also controls the pituitary gland. Not responsible for balance."
     ],
-    memoryTip: "'CereBELLum = BELL = BALANCE.' Or: 'Little brain at the BACK = BALANCE and coordination.'"
+    memoryTip: "'CereBELLum = BELL = BALANCE.' Or: 'Little brain at the BACK = BALANCE and coordination.'",
+    difficulty: 3
   },
   {
     id: "Q21",
@@ -332,7 +352,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Circulatory system — consists of the heart and blood vessels. The trachea is an airway tube, not a blood vessel.",
       "Nervous system — consists of nerve tissue (brain, spinal cord, nerves). The trachea is cartilaginous airway tissue, not neural tissue."
     ],
-    memoryTip: "You can feel the ridges of the trachea in your neck — those ridges are the cartilage rings. It is your windpipe. Wind = air = respiratory system."
+    memoryTip: "You can feel the ridges of the trachea in your neck — those ridges are the cartilage rings. It is your windpipe. Wind = air = respiratory system.",
+    difficulty: 1
   },
   {
     id: "Q22",
@@ -348,7 +369,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Adrenaline — the fight-or-flight hormone from the adrenal medulla. It actually raises blood sugar (by breaking down glycogen stores for quick energy during stress) but is not the primary blood glucose regulator.",
       "Cortisol — the stress hormone from the adrenal cortex. It also raises blood sugar during stress. However, it is not the primary, ongoing blood glucose regulator — insulin is."
     ],
-    memoryTip: "'INsulin = INvites glucose IN to cells.' No insulin = glucose locked outside cells = accumulates in the blood = dangerously high blood sugar."
+    memoryTip: "'INsulin = INvites glucose IN to cells.' No insulin = glucose locked outside cells = accumulates in the blood = dangerously high blood sugar.",
+    difficulty: 2
   },
   {
     id: "Q23",
@@ -364,7 +386,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Brain — weighs approximately 1.3–1.4 kg. Large and vital, but far smaller than the skin.",
       "Heart — weighs approximately 250–350 g. Much smaller than the skin."
     ],
-    memoryTip: "'Skin = the body's SUIT.' Your suit covers your entire body; the skin IS the biggest organ. Important exam distinction: 'Largest internal organ = Liver. Largest organ overall = Skin.'"
+    memoryTip: "'Skin = the body's SUIT.' Your suit covers your entire body; the skin IS the biggest organ. Important exam distinction: 'Largest internal organ = Liver. Largest organ overall = Skin.'",
+    difficulty: 1
   },
   {
     id: "Q24",
@@ -380,7 +403,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Right ventricle — receives deoxygenated blood from the right atrium and pumps it to the lungs (via the pulmonary artery) to be oxygenated. This is pulmonary circulation.",
       "Left atrium — receives oxygenated blood from the lungs (via the pulmonary veins) and passes it downward to the left ventricle. It collects and passes on; it does not pump to the body."
     ],
-    memoryTip: "'Left Ventricle = the body's Lifeline pump.' Left side = oxygenated (bright red) blood. Left ventricle is the last stop before blood goes to the body."
+    memoryTip: "'Left Ventricle = the body's Lifeline pump.' Left side = oxygenated (bright red) blood. Left ventricle is the last stop before blood goes to the body.",
+    difficulty: 2
   },
   {
     id: "Q25",
@@ -396,7 +420,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Adaptation — refers to long-term changes an organism makes to better survive in its environment (either evolutionary over generations, or physiological over time). Not the same as moment-to-moment internal regulation.",
       "Evolution — the change in genetic characteristics of populations over many generations. Completely unrelated to maintaining internal stability."
     ],
-    memoryTip: "'HOMEostasis = keeping the body 'HOME' (comfortable and in balance).' Think of it as the body's smart home system."
+    memoryTip: "'HOMEostasis = keeping the body 'HOME' (comfortable and in balance).' Think of it as the body's smart home system.",
+    difficulty: 1
   },
   {
     id: "Q26",
@@ -412,7 +437,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Platelets — involved in blood clotting (haemostasis). They are not immune cells.",
       "Plasma cells — technically these are immune cells (they are differentiated B lymphocytes that produce antibodies). However, they are a specific subset of white blood cells. The broader, more encompassing correct answer is 'white blood cells.'"
     ],
-    memoryTip: "'WHITE = WARRIOR.' When a doctor checks your blood count during an infection, they look for a raised white cell count — proof that white blood cells are your immune fighters."
+    memoryTip: "'WHITE = WARRIOR.' When a doctor checks your blood count during an infection, they look for a raised white cell count — proof that white blood cells are your immune fighters.",
+    difficulty: 1
   },
   {
     id: "Q27",
@@ -427,7 +453,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Stomach to the small intestine — this connection is controlled by the pyloric valve (pyloric sphincter). The first section of the small intestine is called the duodenum.",
       "Small intestine to the large intestine — this junction is called the ileocecal valve, where the ileum meets the cecum.",
       "Pharynx to the trachea — the trachea (windpipe) is the airway, not the food path. The pharynx connects to both the esophagus (food) and the trachea (air)."
-    ]
+    ],
+    difficulty: 1
   },
   {
     id: "Q28",
@@ -443,7 +470,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Cell body (soma) — the metabolic centre of the neuron, containing the nucleus and organelles. It processes and integrates incoming signals, but the initial reception is done by the dendrites.",
       "Synapse — this is not actually a part of the neuron. A synapse is the gap (junction) between two neurons, where signals pass from one cell to the next using chemical messengers called neurotransmitters."
     ],
-    memoryTip: "Signal flow through a neuron: Dendrite → Cell body → Axon = Receive → Process → Send. 'D for Dendrite = D for Detection (detects/receives incoming signals).'"
+    memoryTip: "Signal flow through a neuron: Dendrite → Cell body → Axon = Receive → Process → Send. 'D for Dendrite = D for Detection (detects/receives incoming signals).'",
+    difficulty: 2
   },
   {
     id: "Q29",
@@ -459,7 +487,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Neuron — the functional unit of the nervous system. Transmits electrical signals.",
       "Hepatocyte — a liver cell (hepato = liver in Greek). Hepatocytes are the functional cells of the liver, not the kidney."
     ],
-    memoryTip: "NANS rule: Neuron = Nervous system | Alveolus = Airways (lungs) | Nephron = kidNey | Sarcomere = Skeletal muscle. The 'N' in nephron reminds you of kidNey."
+    memoryTip: "NANS rule: Neuron = Nervous system | Alveolus = Airways (lungs) | Nephron = kidNey | Sarcomere = Skeletal muscle. The 'N' in nephron reminds you of kidNey.",
+    difficulty: 2
   },
   {
     id: "Q30",
@@ -475,7 +504,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pulmonary valve — sits between the right ventricle and the pulmonary artery. It prevents blood from flowing back from the pulmonary artery into the right ventricle. This is a semilunar valve.",
       "Aortic valve — sits between the left ventricle and the aorta. It prevents blood from flowing back from the aorta into the left ventricle after contraction."
     ],
-    memoryTip: "'Mitral = named after a bishop's mitre hat.' Left side of heart = Mitral + Aortic valves. Right side = Tricuspid + Pulmonary valves."
+    memoryTip: "'Mitral = named after a bishop's mitre hat.' Left side of heart = Mitral + Aortic valves. Right side = Tricuspid + Pulmonary valves.",
+    difficulty: 3
   },
   {
     id: "Q31",
@@ -491,7 +521,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Cortisol — produced by the adrenal cortex (outer layer of the adrenal gland). The primary stress hormone. Not produced by the thyroid.",
       "Testosterone — the primary male sex hormone, produced mainly by the testes. Not produced by the thyroid."
     ],
-    memoryTip: "'THYROxine = THYROid gland.' The hormone is literally named after its gland of origin — same root word!"
+    memoryTip: "'THYROxine = THYROid gland.' The hormone is literally named after its gland of origin — same root word!",
+    difficulty: 1
   },
   {
     id: "Q32",
@@ -507,7 +538,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Retina — the light-sensitive layer at the back of the eye containing photoreceptors (rods and cones). The retina detects the already-focused light and converts it into nerve signals. It does not focus light.",
       "Pupil — the opening (hole) in the centre of the iris. It controls the quantity of light entering the eye, but does not focus it."
     ],
-    memoryTip: "'LENS = LIGHT focusing.' Just as a camera lens makes images sharp, the eye's lens focuses light for sharp vision."
+    memoryTip: "'LENS = LIGHT focusing.' Just as a camera lens makes images sharp, the eye's lens focuses light for sharp vision.",
+    difficulty: 2
   },
   {
     id: "Q33",
@@ -523,7 +555,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Circulation — the circulation of blood is the function of the heart and blood vessels. The diaphragm does not pump blood.",
       "Urination — urination is controlled by the urinary bladder's detrusor muscle and urethral sphincters. The diaphragm is not involved."
     ],
-    memoryTip: "Hiccups are involuntary, sudden spasms of the diaphragm — direct proof that the diaphragm is the breathing muscle. Every hiccup is an involuntary inhalation caused by a diaphragm spasm."
+    memoryTip: "Hiccups are involuntary, sudden spasms of the diaphragm — direct proof that the diaphragm is the breathing muscle. Every hiccup is an involuntary inhalation caused by a diaphragm spasm.",
+    difficulty: 1
   },
   {
     id: "Q34",
@@ -539,7 +572,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Muscle tissue — specialised for contraction and movement. Found in muscles throughout the body. Does not cover surfaces.",
       "Nervous tissue — specialised for transmitting electrical signals (nerve impulses). Forms the brain, spinal cord, and nerves. Does not cover surfaces."
     ],
-    memoryTip: "'Every Cell Makes Noise' = Epithelial, Connective, Muscle, Nervous. Of these four, only Epithelial covers surfaces. 'Epi' = upon/above → sits upon surfaces."
+    memoryTip: "'Every Cell Makes Noise' = Epithelial, Connective, Muscle, Nervous. Of these four, only Epithelial covers surfaces. 'Epi' = upon/above → sits upon surfaces.",
+    difficulty: 2
   },
   {
     id: "Q35",
@@ -555,7 +589,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Ribs — protect the heart and lungs in the thoracic cavity. Ribs attach to thoracic vertebrae but do not directly form a protective canal for the spinal cord.",
       "Pelvis — protects the pelvic organs (bladder, uterus, rectum). The spinal cord ends around the level of the first or second lumbar vertebra (L1–L2), above the pelvis."
     ],
-    memoryTip: "'SPINal cord → SPINE (vertebrae) protects it.' The spinal cord runs inside the spinal column just as electrical wires run inside a conduit pipe."
+    memoryTip: "'SPINal cord → SPINE (vertebrae) protects it.' The spinal cord runs inside the spinal column just as electrical wires run inside a conduit pipe.",
+    difficulty: 1
   },
   {
     id: "Q36",
@@ -571,7 +606,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Type B — has B antigens. Cannot be given to type A or O individuals (who carry anti-B antibodies).",
       "Type AB — is actually the universal RECIPIENT — people with AB blood can receive any blood type. However, AB blood has both A and B antigens and cannot be donated to type A, B, or O individuals."
     ],
-    memoryTip: "'O = Zero antigens = Zero risk of rejection = can go to anyone.' 'AB = Anything goes in = universal recipient.' O and AB are opposites."
+    memoryTip: "'O = Zero antigens = Zero risk of rejection = can go to anyone.' 'AB = Anything goes in = universal recipient.' O and AB are opposites.",
+    difficulty: 2
   },
   {
     id: "Q37",
@@ -587,7 +623,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pepsin — a protein-digesting enzyme produced by chief cells in the stomach lining. Not produced by the pancreas.",
       "Mucus — produced by mucous glands and goblet cells throughout the body. Not specifically a pancreatic product."
     ],
-    memoryTip: "'PANcreas = PANhandles insulin AND digestive enzymes.' It handles two completely different jobs — the endocrine and the exocrine."
+    memoryTip: "'PANcreas = PANhandles insulin AND digestive enzymes.' It handles two completely different jobs — the endocrine and the exocrine.",
+    difficulty: 2
   },
   {
     id: "Q38",
@@ -603,7 +640,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pharynx — the throat — is the shared passage through which both air and food pass. It is a tube, not a flap or valve. It does not actively direct food away from the trachea; that is the epiglottis's job.",
       "Larynx — the voice box, which sits below the epiglottis and opens into the trachea. The epiglottis protects the entrance to the larynx/trachea. The larynx itself does not do the protecting."
     ],
-    memoryTip: "Think of the epiglottis as a trapdoor lid — when you swallow, the lid closes to protect the airway. Epiglottis = EPIc GATEKEEPER of the airway."
+    memoryTip: "Think of the epiglottis as a trapdoor lid — when you swallow, the lid closes to protect the airway. Epiglottis = EPIc GATEKEEPER of the airway.",
+    difficulty: 2
   },
   {
     id: "Q39",
@@ -619,7 +657,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Protein digestion — protein digestion begins in the stomach and is completed in the small intestine. The large intestine does not digest proteins.",
       "Fat emulsification — fats are emulsified (broken into tiny droplets for easier digestion) by bile in the small intestine. Not a function of the large intestine."
     ],
-    memoryTip: "'Small intestine = Sucks up nutrients (S for Small = Sustenance). Large intestine = Last stop, reclaims Liquid (L for Large = Last, Liquid recovery).'"
+    memoryTip: "'Small intestine = Sucks up nutrients (S for Small = Sustenance). Large intestine = Last stop, reclaims Liquid (L for Large = Last, Liquid recovery).'",
+    difficulty: 1
   },
   {
     id: "Q40",
@@ -635,7 +674,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Humerus — the long bone of the upper arm, running from the shoulder joint to the elbow. Not the collarbone.",
       "Sternum — the flat bone in the centre of the chest called the breastbone. Ribs attach to it. Not the collarbone."
     ],
-    memoryTip: "'ClaviCLE = CoLLar.' Both contain the letters C, L. The clavicle sits at the level of a shirt collar. Shoulder area: Scapula = shoulder blade (back). Clavicle = collarbone (front). Humerus = upper arm."
+    memoryTip: "'ClaviCLE = CoLLar.' Both contain the letters C, L. The clavicle sits at the level of a shirt collar. Shoulder area: Scapula = shoulder blade (back). Clavicle = collarbone (front). Humerus = upper arm.",
+    difficulty: 1
   },
   {
     id: "Q41",
@@ -651,7 +691,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Memory — memory formation and storage primarily involve the cerebrum, particularly the hippocampus.",
       "Vision — visual processing occurs in the occipital lobe of the cerebrum."
     ],
-    memoryTip: "'Medulla Oblongata = MOB = Manages Our Breathing (and heart rate).'"
+    memoryTip: "'Medulla Oblongata = MOB = Manages Our Breathing (and heart rate).'",
+    difficulty: 2
   },
   {
     id: "Q42",
@@ -667,7 +708,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pancreas — produces digestive enzymes and hormones. Has no role in bile production or storage.",
       "Spleen — a lymphatic/immune organ that filters blood and removes old red blood cells. Not a digestive organ."
     ],
-    memoryTip: "'GALL-bladder holds GALL.' Gall is the historical/old English word for bile. Liver MAKES it → Gallbladder STORES it → Small intestine USES it."
+    memoryTip: "'GALL-bladder holds GALL.' Gall is the historical/old English word for bile. Liver MAKES it → Gallbladder STORES it → Small intestine USES it.",
+    difficulty: 1
   },
   {
     id: "Q43",
@@ -683,7 +725,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Neuron — the functional unit of the nervous system.",
       "Alveolus — the functional unit of the lungs."
     ],
-    memoryTip: "NANS rule: Neuron = Nervous | Alveolus = Airways | Nephron = kidNey | Sarcomere = Skeletal muscle. 'Sarco' = flesh = muscle."
+    memoryTip: "NANS rule: Neuron = Nervous | Alveolus = Airways | Nephron = kidNey | Sarcomere = Skeletal muscle. 'Sarco' = flesh = muscle.",
+    difficulty: 2
   },
   {
     id: "Q44",
@@ -699,7 +742,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Carotid artery — carries oxygenated blood to the brain and head.",
       "Coronary artery — supplies oxygenated blood to the heart muscle itself."
     ],
-    memoryTip: "'Arteries = Away from heart (regardless of oxygen content).' Remember the paired exception: Pulmonary ARTERY = deoxygenated (going TO lungs). Pulmonary VEINS = oxygenated (coming BACK from lungs)."
+    memoryTip: "'Arteries = Away from heart (regardless of oxygen content).' Remember the paired exception: Pulmonary ARTERY = deoxygenated (going TO lungs). Pulmonary VEINS = oxygenated (coming BACK from lungs).",
+    difficulty: 3
   },
   {
     id: "Q45",
@@ -715,7 +759,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Estrogen — a sex hormone. During pregnancy, high estrogen levels actually inhibit prolactin's milk-producing effect.",
       "Progesterone — another sex hormone. Like estrogen, high progesterone during pregnancy suppresses milk production."
     ],
-    memoryTip: "'PROLACTin = PROduces LACTation (milk).'"
+    memoryTip: "'PROLACTin = PROduces LACTation (milk).'",
+    difficulty: 2
   },
   {
     id: "Q46",
@@ -731,7 +776,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Middle ear — contains three tiny bones (malleus, incus, stapes) that amplify and transmit vibrations to the inner ear.",
       "Eustachian tube — connects the middle ear to the throat. Its only function is to equalise air pressure on both sides of the eardrum."
     ],
-    memoryTip: "'COCHLea = CONverts vibration → hearing CONcludes here.'"
+    memoryTip: "'COCHLea = CONverts vibration → hearing CONcludes here.'",
+    difficulty: 2
   },
   {
     id: "Q47",
@@ -747,7 +793,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Small intestine — the appendix attaches specifically to the cecum, which is the junction piece at the very start of the large intestine.",
       "Liver — located in the upper right abdomen, under the diaphragm."
     ],
-    memoryTip: "'AppendIX = attaches at the end of the Ileum/start of LARGE intestine (cecum) = lower RIGHT abdomen.'"
+    memoryTip: "'AppendIX = attaches at the end of the Ileum/start of LARGE intestine (cecum) = lower RIGHT abdomen.'",
+    difficulty: 1
   },
   {
     id: "Q48",
@@ -763,7 +810,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Adrenal gland — regulates the stress response, blood pressure, and some sex hormones.",
       "Parathyroid gland — four tiny glands that produce parathyroid hormone (PTH), which regulates calcium and phosphate levels."
     ],
-    memoryTip: "'THYROID = THERMOSTAT + THROTTLE of the body.' It controls the body's temperature (thermostat) and the speed of metabolism (throttle)."
+    memoryTip: "'THYROID = THERMOSTAT + THROTTLE of the body.' It controls the body's temperature (thermostat) and the speed of metabolism (throttle).",
+    difficulty: 1
   },
   {
     id: "Q49",
@@ -779,7 +827,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Leukocytosis — means an abnormal increase in white blood cell count above normal levels.",
       "Hemostasis — the process of stopping bleeding through blood clotting."
     ],
-    memoryTip: "'ERYTHROcytes (red blood cells) → ERYTHROpoiesis (making red blood cells).'"
+    memoryTip: "'ERYTHROcytes (red blood cells) → ERYTHROpoiesis (making red blood cells).'",
+    difficulty: 3
   },
   {
     id: "Q50",
@@ -794,7 +843,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Intercostal muscles alone — incomplete. This ignores the dominant role of the diaphragm.",
       "Diaphragm alone — incomplete. While the diaphragm is the primary breathing muscle, the intercostals contribute significantly.",
       "Abdominal muscles — these are accessory muscles used only during forced exhalation."
-    ]
+    ],
+    difficulty: 2
   },
   {
     id: "Q51",
@@ -810,7 +860,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Left ventricle — the most powerful pumping chamber. The SA node is located in an atrium.",
       "Right ventricle — pumps blood to the lungs. The SA node is in the atrium above."
     ],
-    memoryTip: "'SA node = Starts All (heartbeats), sits in the Right Atrium — where blood first arrives at the heart from the body.'"
+    memoryTip: "'SA node = Starts All (heartbeats), sits in the Right Atrium — where blood first arrives at the heart from the body.'",
+    difficulty: 2
   },
   {
     id: "Q52",
@@ -826,7 +877,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Vitamin C — an antioxidant found in fruits and vegetables. Humans cannot synthesise vitamin C.",
       "Vitamin K — found in leafy green vegetables and produced by gut bacteria in the large intestine. It is NOT produced in the skin."
     ],
-    memoryTip: "'Vitamin D = the SUNSHINE vitamin.' Skin + sun = vitamin D. 'D for Daylight.'"
+    memoryTip: "'Vitamin D = the SUNSHINE vitamin.' Skin + sun = vitamin D. 'D for Daylight.'",
+    difficulty: 1
   },
   {
     id: "Q53",
@@ -842,7 +894,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Globulin — a group of plasma proteins with various functions like fighting infection or transporting lipids.",
       "Hemoglobin — the oxygen-carrying protein found inside red blood cells. It is NOT a plasma protein."
     ],
-    memoryTip: "'FIBRINogen → makes FIBRIN → creates a FIBROUS clotting net.'"
+    memoryTip: "'FIBRINogen → makes FIBRIN → creates a FIBROUS clotting net.'",
+    difficulty: 3
   },
   {
     id: "Q54",
@@ -858,7 +911,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Thalamus — a deep relay station for sensory signals.",
       "Hypothalamus — regulates homeostasis."
     ],
-    memoryTip: "'Corpus Callosum = Communication Corridor between the two brain halves.'"
+    memoryTip: "'Corpus Callosum = Communication Corridor between the two brain halves.'",
+    difficulty: 2
   },
   {
     id: "Q55",
@@ -874,7 +928,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Bile — stored in the gallbladder.",
       "Lymph — circulates through the lymphatic system."
     ],
-    memoryTip: "'URINary bladder = stores URINE.' Critical exam distinction: Gallbladder = stores BILE. URINary bladder = stores URINE."
+    memoryTip: "'URINary bladder = stores URINE.' Critical exam distinction: Gallbladder = stores BILE. URINary bladder = stores URINE.",
+    difficulty: 1
   },
   {
     id: "Q56",
@@ -890,7 +945,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Natural passive immunity — antibodies transferred naturally from one individual to another (e.g., mother to fetus).",
       "Artificial passive immunity — ready-made antibodies injected into someone (e.g., snake antivenom)."
     ],
-    memoryTip: "'ACTIVE = YOUR body is ACTIVE (making its own antibodies). PASSIVE = you PASSIVELY RECEIVE ready-made antibodies.' 'NATURAL = no medical intervention. ARTIFICIAL = medical intervention involved.'"
+    memoryTip: "'ACTIVE = YOUR body is ACTIVE (making its own antibodies). PASSIVE = you PASSIVELY RECEIVE ready-made antibodies.' 'NATURAL = no medical intervention. ARTIFICIAL = medical intervention involved.'",
+    difficulty: 3
   },
   {
     id: "Q57",
@@ -906,7 +962,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Liver — a digestive and metabolic organ. Contains no glomeruli.",
       "Spleen — a lymphatic/immune organ that filters blood. Has no glomeruli."
     ],
-    memoryTip: "'GLOMErulus = GLOMerated (clustered) capillaries = the kidney's microscopic filter ball.'"
+    memoryTip: "'GLOMErulus = GLOMerated (clustered) capillaries = the kidney's microscopic filter ball.'",
+    difficulty: 2
   },
   {
     id: "Q58",
@@ -922,7 +979,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Trigeminal nerve — CN V — responsible for sensation across the face and controls the muscles of chewing.",
       "Facial nerve — CN VII — controls the muscles of facial expression and provides taste sensation."
     ],
-    memoryTip: "'OPTic = OPTical = seeing with OPTics.' The OPTic nerve is literally the sight nerve."
+    memoryTip: "'OPTic = OPTical = seeing with OPTics.' The OPTic nerve is literally the sight nerve.",
+    difficulty: 2
   },
   {
     id: "Q59",
@@ -938,7 +996,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Pituitary gland — the master gland, producing TSH, GH, ACTH, etc.",
       "Pancreas — produces insulin, glucagon, and digestive enzymes."
     ],
-    memoryTip: "'ADRENALine = from the ADRENAl gland.' 'AD-renal = glands sitting AD-jacent to (on top of) the RENAL (kidney).'"
+    memoryTip: "'ADRENALine = from the ADRENAl gland.' 'AD-renal = glands sitting AD-jacent to (on top of) the RENAL (kidney).'",
+    difficulty: 1
   },
   {
     id: "Q60",
@@ -954,7 +1013,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Epicardium — the outermost layer of the heart wall. It is a thin serous membrane.",
       "Pericardium — the double-layered fibrous sac that surrounds the entire heart. It is NOT a layer of the heart wall itself."
     ],
-    memoryTip: "'MYO = MUSCle' — you see the prefix myo in many muscle-related terms. MYOcardium = heart MUSCLE layer = the one that contracts."
+    memoryTip: "'MYO = MUSCle' — you see the prefix myo in many muscle-related terms. MYOcardium = heart MUSCLE layer = the one that contracts.",
+    difficulty: 2
   },
   {
     id: "Q61",
@@ -970,7 +1030,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Digestion — the function of the digestive system.",
       "Hormone production — the function of the endocrine system."
     ],
-    memoryTip: "'LYMPH = LIQUID recovery + LYMPHocytes (immune cells).'"
+    memoryTip: "'LYMPH = LIQUID recovery + LYMPHocytes (immune cells).'",
+    difficulty: 2
   },
   {
     id: "Q62",
@@ -986,7 +1047,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Ureter — the tube that carries urine from the kidney to the bladder.",
       "Bladder — stores urine."
     ],
-    memoryTip: "'GLOMErulus = the kidney's GATEKEEPER filter.'"
+    memoryTip: "'GLOMErulus = the kidney's GATEKEEPER filter.'",
+    difficulty: 2
   },
   {
     id: "Q63",
@@ -1002,7 +1064,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Insulin — regulates blood sugar.",
       "Adrenaline — regulates the stress response."
     ],
-    memoryTip: "'PARAthyroid = PARA-mount for calcium control.'"
+    memoryTip: "'PARAthyroid = PARA-mount for calcium control.'",
+    difficulty: 4
   },
   {
     id: "Q64",
@@ -1018,7 +1081,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Brainstem — controls vital automatic functions.",
       "Thalamus — acts as a relay station for sensory information."
     ],
-    memoryTip: "'CORTEX = COMPLEX thinking.'"
+    memoryTip: "'CORTEX = COMPLEX thinking.'",
+    difficulty: 3
   },
   {
     id: "Q65",
@@ -1034,7 +1098,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Aortic valve — located between the left ventricle and the aorta.",
       "Pulmonary valve — located between the right ventricle and the pulmonary artery."
     ],
-    memoryTip: "'TRI-cuspid is on the RIGHT side (both have R and I).'"
+    memoryTip: "'TRI-cuspid is on the RIGHT side (both have R and I).'",
+    difficulty: 2
   },
   {
     id: "Q66",
@@ -1050,7 +1115,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Stomach — produces digestive juices but not insulin.",
       "Kidney — filters blood but does not produce insulin."
     ],
-    memoryTip: "'PANcreas = Produces All Necessary sugar-regulating hormones.'"
+    memoryTip: "'PANcreas = Produces All Necessary sugar-regulating hormones.'",
+    difficulty: 1
   },
   {
     id: "Q67",
@@ -1066,7 +1132,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Molecule — a group of atoms, but not a living unit.",
       "Organ — a group of tissues, which are groups of cells. The cell is the most basic unit."
     ],
-    memoryTip: "'CELL = the body's building block.'"
+    memoryTip: "'CELL = the body's building block.'",
+    difficulty: 1
   },
   {
     id: "Q68",
@@ -1082,7 +1149,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Nitrogen — an inert gas in the atmosphere, not a product of respiration.",
       "Hydrogen — not a primary waste product of human cellular respiration."
     ],
-    memoryTip: "'Breath IN Oxygen, Breath OUT CO2 (waste).'"
+    memoryTip: "'Breath IN Oxygen, Breath OUT CO2 (waste).'",
+    difficulty: 2
   },
   {
     id: "Q69",
@@ -1098,7 +1166,8 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Chest — contains the ribs and sternum.",
       "Back — contains the vertebrae."
     ],
-    memoryTip: "'FEMUR = thigh bone = the body's biggest bone.'"
+    memoryTip: "'FEMUR = thigh bone = the body's biggest bone.'",
+    difficulty: 1
   },
   {
     id: "Q70",
@@ -1114,23 +1183,22 @@ export const ANATOMY_QUESTIONS: Question[] = [
       "Lens — focuses light onto the retina.",
       "Iris — the coloured part of the eye that controls pupil size."
     ],
-    memoryTip: "'RETINA = REceives light signals.'"
+    memoryTip: "'RETINA = REceives light signals.'",
+    difficulty: 3
   }
 ];
 
-// I will add the rest of the 70 questions in a similar fashion.
-// For brevity in this turn, I'll stop at 20 and add a placeholder for the rest, 
-// then I'll use multi_edit to fill them in if needed, or just provide the full list now.
-// Actually, the user wants ALL information incorporated. I'll provide the full 70.
+// Final Export and Level Organization
+const SORTED_QUESTIONS = [...ANATOMY_QUESTIONS].sort((a, b) => a.difficulty - b.difficulty);
 
-export const QUESTIONS = ANATOMY_QUESTIONS;
-export const TOTAL_LEVELS = 7; // 70 questions / 10 per level
+export const QUESTIONS = SORTED_QUESTIONS;
+export const TOTAL_LEVELS = 7;
 export const LEVELS: Record<number, Question[]> = {
-  1: ANATOMY_QUESTIONS.slice(0, 10),
-  2: ANATOMY_QUESTIONS.slice(10, 20),
-  3: ANATOMY_QUESTIONS.slice(20, 30),
-  4: ANATOMY_QUESTIONS.slice(30, 40),
-  5: ANATOMY_QUESTIONS.slice(40, 50),
-  6: ANATOMY_QUESTIONS.slice(50, 60),
-  7: ANATOMY_QUESTIONS.slice(60, 70),
+  1: SORTED_QUESTIONS.slice(0, 10),
+  2: SORTED_QUESTIONS.slice(10, 20),
+  3: SORTED_QUESTIONS.slice(20, 30),
+  4: SORTED_QUESTIONS.slice(30, 40),
+  5: SORTED_QUESTIONS.slice(40, 50),
+  6: SORTED_QUESTIONS.slice(50, 60),
+  7: SORTED_QUESTIONS.slice(60, 70),
 };

@@ -4,140 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mulwa Nursing Prep | Excellence in Education</title>
-    <meta name="description" content="A high-performance, gamified nursing study companion. Created by Mulwa.">
+    <meta name="description" content="A high-performance, gamified nursing study companion. MULWA 😎">
     <meta name="author" content="Mulwa">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%232563eb%22/><path d=%22M30 70 L50 30 L70 70 M40 55 L60 55%22 stroke=%22white%22 stroke-width=%228%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/></svg>">
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-              display: ['Outfit', 'sans-serif'],
-            },
-            colors: {
-              primary: {
-                50: '#eff6ff',
-                100: '#dbeafe',
-                200: '#bfdbfe',
-                300: '#93c5fd',
-                400: '#60a5fa',
-                500: '#3b82f6',
-                600: '#2563eb', // Vibrant Blue
-                700: '#1d4ed8',
-                800: '#1e40af',
-                900: '#1e3a8a',
-              },
-              accent: {
-                teal: '#2dd4bf',   // Success/Medical
-                coral: '#f43f5e',  // Alert/Energy
-                violet: '#8b5cf6', // Deep learning/Premium
-                amber: '#f59e0b',  // Awards
-              }
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-              'slide-down': 'slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-              'scale-in': 'scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-              'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
-              },
-              slideUp: {
-                '0%': { transform: 'translateY(30px)', opacity: 0 },
-                '100%': { transform: 'translateY(0)', opacity: 1 },
-              },
-              slideDown: {
-                '0%': { transform: 'translateY(-20px)', opacity: 0 },
-                '100%': { transform: 'translateY(0)', opacity: 1 },
-              },
-              scaleIn: {
-                '0%': { transform: 'scale(0.95)', opacity: 0 },
-                '100%': { transform: 'scale(1)', opacity: 1 },
-              },
-              shake: {
-                '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
-                '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-                '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-                '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
-              }
-            }
-          }
+      // Suppress benign WebSocket errors from the preview environment
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && (
+          event.reason.message?.includes('WebSocket') || 
+          event.reason.message?.includes('HMR')
+        )) {
+          event.preventDefault();
         }
-      }
+      });
+      window.addEventListener('error', function(event) {
+        if (event.message?.includes('WebSocket') || event.message?.includes('HMR')) {
+          event.stopImmediatePropagation();
+        }
+      }, true);
     </script>
-    <style>
-      :root {
-        --primary: #2563eb;
-      }
-      
-      body {
-        background-color: #f8fafc;
-        background-image: 
-          radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
-          radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
-          radial-gradient(at 100% 100%, rgba(45, 212, 191, 0.05) 0px, transparent 50%),
-          radial-gradient(at 0% 100%, rgba(244, 63, 94, 0.03) 0px, transparent 50%);
-        background-attachment: fixed;
-        -webkit-tap-highlight-color: transparent;
-      }
-      
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 8px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #e2e8f0;
-        border-radius: 20px;
-        border: 2px solid transparent;
-        background-clip: content-box;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #cbd5e1;
-        background-clip: content-box;
-      }
-
-      .perspective-1000 {
-        perspective: 1000px;
-      }
-
-      /* Smooth transitions for all elements */
-      * {
-        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 150ms;
-      }
-
-      /* Prevent text selection on buttons */
-      button {
-        user-select: none;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.574.0",
-    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
-    "canvas-confetti": "https://esm.sh/canvas-confetti@^1.9.4"
-  }
-}
-</script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>

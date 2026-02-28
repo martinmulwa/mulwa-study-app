@@ -9,7 +9,7 @@ interface QuizCardProps {
   showExplanation: boolean;
   userSelected: number | null;
   showRationale: boolean;
-  onShowRationale: () => void;
+  onToggleRationale: () => void;
   onRateDifficulty: (rating: number) => void;
   difficultyRating: number | null;
 }
@@ -20,20 +20,11 @@ export const QuizCard: React.FC<QuizCardProps> = ({
   showExplanation,
   userSelected,
   showRationale,
-  onShowRationale,
+  onToggleRationale,
   onRateDifficulty,
   difficultyRating
 }) => {
-  const [expandedOption, setExpandedOption] = useState<number | null>(null);
   const letters = ['A', 'B', 'C', 'D'];
-
-  const toggleOption = (idx: number) => {
-    if (expandedOption === idx) {
-      setExpandedOption(null);
-    } else {
-      setExpandedOption(idx);
-    }
-  };
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -65,7 +56,6 @@ export const QuizCard: React.FC<QuizCardProps> = ({
             {question.options.map((option, idx) => {
               const isSelected = userSelected === idx;
               const isCorrect = idx === question.correctAnswerIndex;
-              const isExpanded = expandedOption === idx;
               
               let cardClass = "relative w-full text-left p-5 rounded-2xl border-2 transition-all duration-300 flex items-start group ";
               let letterClass = "flex items-center justify-center w-10 h-10 rounded-xl text-sm font-black mr-4 shrink-0 transition-all duration-300 mt-0.5 ";
@@ -89,7 +79,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
               return (
                 <div key={idx} className="flex flex-col">
                   <button
-                    onClick={() => !showExplanation ? onAnswer(idx) : toggleOption(idx)}
+                    onClick={() => !showExplanation && onAnswer(idx)}
                     className={cardClass}
                   >
                     <div className={letterClass}>{letters[idx]}</div>
@@ -100,30 +90,8 @@ export const QuizCard: React.FC<QuizCardProps> = ({
                     <div className="absolute right-4 top-6 flex items-center gap-2">
                       {showExplanation && isCorrect && <Check className="w-6 h-6 text-emerald-600 animate-scale-in" />}
                       {showExplanation && isSelected && !isCorrect && <X className="w-6 h-6 text-rose-600 animate-scale-in" />}
-                      {showExplanation && (
-                        <div className="text-slate-400">
-                          {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                        </div>
-                      )}
                     </div>
                   </button>
-                  
-                  {/* ACCORDION EXPLANATION */}
-                  {showExplanation && isExpanded && question.whyWrong && question.whyWrong[idx] && (
-                     <div className="mt-2 mx-2 animate-slide-down overflow-hidden">
-                       <div className={`p-5 rounded-2xl border-2 ${isCorrect ? 'bg-emerald-50/50 border-emerald-100 text-emerald-800' : 'bg-slate-50 border-slate-100 text-slate-600'}`}>
-                         <div className="flex items-center gap-2 mb-2">
-                           <div className={`w-1.5 h-1.5 rounded-full ${isCorrect ? 'bg-emerald-400' : 'bg-slate-400'}`}></div>
-                           <span className="font-black text-[10px] uppercase tracking-widest opacity-60">
-                             {isCorrect ? 'Correct Choice Rationale' : 'Incorrect Choice Analysis'}
-                           </span>
-                         </div>
-                         <p className="text-sm leading-relaxed font-medium">
-                           {question.whyWrong[idx]}
-                         </p>
-                       </div>
-                     </div>
-                  )}
                 </div>
               );
             })}
@@ -134,21 +102,35 @@ export const QuizCard: React.FC<QuizCardProps> = ({
         {showExplanation && (
           <div className="bg-slate-50/50 border-t border-slate-100 p-6 md:p-10 animate-slide-up space-y-8">
             
-            {!showRationale ? (
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                <div className="text-center md:text-left">
-                  <p className="font-black text-slate-900 text-lg">Deep Dive</p>
-                  <p className="text-sm text-slate-500 font-medium">Unlock the full clinical rationale and memory aids.</p>
-                </div>
-                <button
-                  onClick={onShowRationale}
-                  className="w-full md:w-auto bg-primary-600 text-white px-8 py-4 rounded-2xl font-black text-sm hover:bg-primary-700 transition-all shadow-xl shadow-primary-500/20 flex items-center justify-center gap-2 active:scale-95"
-                >
-                  <BookOpen className="w-5 h-5" /> Reveal Full Rationale
-                </button>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+              <div className="text-center md:text-left">
+                <p className="font-black text-slate-900 text-lg">Deep Dive</p>
+                <p className="text-sm text-slate-500 font-medium">
+                  {showRationale ? "Hide the full clinical rationale." : "Unlock the full clinical rationale and memory aids."}
+                </p>
               </div>
-            ) : (
-              <div className="space-y-8">
+              <button
+                onClick={onToggleRationale}
+                className={`w-full md:w-auto px-8 py-4 rounded-2xl font-black text-sm transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95 ${
+                  showRationale 
+                    ? 'bg-slate-800 text-white hover:bg-slate-900 shadow-slate-900/20' 
+                    : 'bg-primary-600 text-white hover:bg-primary-700 shadow-primary-500/20'
+                }`}
+              >
+                {showRationale ? (
+                  <>
+                    <ChevronUp className="w-5 h-5" /> Hide Explanation
+                  </>
+                ) : (
+                  <>
+                    <BookOpen className="w-5 h-5" /> Show Explanation
+                  </>
+                )}
+              </button>
+            </div>
+
+            {showRationale && (
+              <div className="space-y-8 animate-slide-down">
                 {/* Main Explanation */}
                 <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-primary-50 rounded-full -mr-12 -mt-12 opacity-50"></div>
@@ -158,9 +140,31 @@ export const QuizCard: React.FC<QuizCardProps> = ({
                     </div>
                     Clinical Explanation
                   </h4>
-                  <p className="text-slate-700 leading-relaxed font-medium relative z-10">
+                  <p className="text-slate-700 leading-relaxed font-medium relative z-10 mb-8">
                     {question.explanation}
                   </p>
+
+                  {/* Why Wrong / Option Analysis List */}
+                  {question.whyWrong && question.whyWrong.length > 0 && (
+                    <div className="space-y-6 relative z-10 border-t border-slate-100 pt-8">
+                      <h5 className="font-black text-slate-900 text-sm mb-4">Why each option is wrong:</h5>
+                      <div className="space-y-4">
+                        {question.whyWrong.map((text, i) => {
+                          // Dynamically determine the letter for the wrong option
+                          const wrongOptionIndices = question.options
+                            .map((_, idx) => idx)
+                            .filter(idx => idx !== question.correctAnswerIndex);
+                          const letter = letters[wrongOptionIndices[i]] || '';
+                          
+                          return (
+                            <p key={i} className="text-sm leading-relaxed text-slate-600 font-medium">
+                              <span className="font-bold text-slate-800">{letter}. {text.split(' — ')[0]}</span> — {text.split(' — ')[1] || text}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -201,7 +205,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
             
             {/* Author Credit */}
             <div className="pt-4 text-center">
-               <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">Created by Mulwa</p>
+               <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">MULWA 😎</p>
             </div>
           </div>
         )}

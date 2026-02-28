@@ -20,7 +20,18 @@ export interface Question {
   explanation: string;
   whyWrong?: string[];
   memoryTip?: string;
-  difficulty?: 'Easy' | 'Medium' | 'Hard';
+  difficulty: number; // 1 (Easy) to 5 (Hard)
+}
+
+export interface UserLog {
+  username: string;
+  timestamp: string;
+  ip?: string;
+  score: number;
+  totalQuestions: number;
+  level: number;
+  xp: number;
+  bestStreak: number;
 }
 
 export interface QuizState {

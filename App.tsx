@@ -64,9 +64,41 @@ const App: React.FC = () => {
   }, [userProgress, currentUser]);
 
   // --- Handlers ---
+  const logUserAction = async (username: string) => {
+    try {
+      await fetch('/api/logs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          score: quizState.score,
+          totalQuestions: userProgress.questionsAnswered,
+          level: userProgress.level,
+          xp: userProgress.xp,
+          bestStreak: userProgress.bestStreak
+        })
+      });
+    } catch (err) {
+      console.error("Failed to log user action:", err);
+    }
+  };
+
+  const logGuestLogin = async (username: string) => {
+    try {
+      await fetch('/api/guests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+      });
+    } catch (err) {
+      console.error("Failed to log guest login:", err);
+    }
+  };
+
   const handleLogin = (username: string) => {
     setCurrentUser(username);
     setGameState(GameState.DASHBOARD);
+    logGuestLogin(username);
   };
 
   const handleResetProgress = () => {
@@ -166,6 +198,7 @@ const App: React.FC = () => {
     } else {
       setQuizState(prev => ({ ...prev, currentQuestionIndex: prev.currentQuestionIndex + 1 }));
       resetQuestionState();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -179,10 +212,11 @@ const App: React.FC = () => {
       if (prevHistory) {
         setSelectedOption(prevHistory.userSelected);
         setShowExplanation(true);
-        setShowRationale(true);
+        setShowRationale(false);
       } else {
         resetQuestionState();
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -190,6 +224,10 @@ const App: React.FC = () => {
     setGameState(GameState.RESULTS);
     const passRate = (quizState.correctAnswers / activeSession.length) * 100;
     
+    if (currentUser) {
+      logUserAction(currentUser);
+    }
+
     if (passRate >= 70 && currentLevelId === userProgress.unlockedQuizLevel && userProgress.unlockedQuizLevel < TOTAL_LEVELS) {
        setUserProgress(prev => ({
          ...prev,
@@ -229,7 +267,7 @@ const App: React.FC = () => {
   if (gameState === GameState.LOGIN) return <LoginScreen onLogin={handleLogin} />;
 
   if (gameState === GameState.DASHBOARD) {
-    return <Dashboard progress={userProgress} onSelectLevel={startLevel} onResetProgress={handleResetProgress} />;
+    return <Dashboard username={currentUser || ''} progress={userProgress} onSelectLevel={startLevel} onResetProgress={handleResetProgress} />;
   }
 
   if (gameState === GameState.PLAYING) {
@@ -274,7 +312,7 @@ const App: React.FC = () => {
             showExplanation={showExplanation}
             userSelected={selectedOption}
             showRationale={showRationale}
-            onShowRationale={() => setShowRationale(true)}
+            onToggleRationale={() => setShowRationale(prev => !prev)}
             onRateDifficulty={handleRateDifficulty}
             difficultyRating={difficultyRating}
           />
@@ -305,9 +343,9 @@ const App: React.FC = () => {
         </div>
         
         {/* Footer Credit */}
-        <div className="pb-24 text-center text-slate-300 text-[10px] font-bold uppercase tracking-[0.3em]">
-          Created by Mulwa
-        </div>
+        <footer className="py-8 text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] mt-auto">
+          MULWA 😎
+        </footer>
       </div>
     );
   }
@@ -344,7 +382,7 @@ const App: React.FC = () => {
                Return to Dashboard
              </button>
              
-             <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">Created by Mulwa</p>
+             <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest opacity-0">MULWA 😎</p>
           </div>
         </div>
       </div>

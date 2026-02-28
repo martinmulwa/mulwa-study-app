@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  --color-accent-teal: #2dd4bf;
+  --color-accent-coral: #f43f5e;
+  --color-accent-violet: #8b5cf6;
+  --color-accent-amber: #f59e0b;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes slideDown {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes scaleIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+  }
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-slide-up: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-scale-in: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shake: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@layer base {
+  :root {
+    --primary: #2563eb;
+  }
+  
+  body {
+    @apply bg-[#f8fafc] antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(45, 212, 191, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(244, 63, 94, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Smooth transitions for all elements */
+  * {
+    @apply transition-all duration-150 ease-in-out;
+  }
+
+  /* Prevent text selection on buttons */
+  button {
+    @apply select-none;
+  }
+}
+
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+    background-clip: content-box;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
