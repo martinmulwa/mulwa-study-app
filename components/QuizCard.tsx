@@ -1,7 +1,15 @@
 
 import React, { useState } from 'react';
 import { Question } from '../types';
-import { Check, X, BookOpen, Tag, Lightbulb, GraduationCap, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, X, BookOpen, Tag, Lightbulb, GraduationCap, Star, ChevronDown, ChevronUp, Sparkles, Info } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 interface QuizCardProps {
   question: Question;
@@ -132,81 +140,115 @@ export const QuizCard: React.FC<QuizCardProps> = ({
             {showRationale && (
               <div className="space-y-8 animate-slide-down">
                 {/* Main Explanation */}
-                <div className="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-primary-50 rounded-full -mr-12 -mt-12 opacity-50"></div>
-                  <h4 className="font-black text-slate-900 mb-4 flex items-center gap-3 relative z-10">
-                    <div className="bg-primary-100 p-2 rounded-xl text-primary-600">
-                      <GraduationCap size={20} />
-                    </div>
-                    Clinical Explanation
-                  </h4>
-                  <p className="text-slate-700 leading-relaxed font-medium relative z-10 mb-8">
-                    {question.explanation}
-                  </p>
-
-                  {/* Why Wrong / Option Analysis List */}
-                  {question.whyWrong && question.whyWrong.length > 0 && (
-                    <div className="space-y-6 relative z-10 border-t border-slate-100 pt-8">
-                      <h5 className="font-black text-slate-900 text-sm mb-4">Why each option is wrong:</h5>
-                      <div className="space-y-4">
-                        {question.whyWrong.map((text, i) => {
-                          // Dynamically determine the letter for the wrong option
-                          const wrongOptionIndices = question.options
-                            .map((_, idx) => idx)
-                            .filter(idx => idx !== question.correctAnswerIndex);
-                          const letter = letters[wrongOptionIndices[i]] || '';
-                          
-                          return (
-                            <p key={i} className="text-sm leading-relaxed text-slate-600 font-medium">
-                              <span className="font-bold text-slate-800">{letter}. {text.split(' — ')[0]}</span> — {text.split(' — ')[1] || text}
-                            </p>
-                          );
-                        })}
+                <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary-50/50 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                  
+                  <div className="px-8 pt-8 pb-4 border-b border-slate-100 flex items-center justify-between relative z-10">
+                    <h4 className="font-black text-slate-900 flex items-center gap-3">
+                      <div className="bg-primary-600 p-2.5 rounded-2xl text-white shadow-lg shadow-primary-600/20">
+                        <GraduationCap size={22} />
                       </div>
+                      <span className="text-xl tracking-tight">Clinical Rationale</span>
+                    </h4>
+                    <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                      <Info size={12} />
+                      Verbatim Source
                     </div>
-                  )}
+                  </div>
+
+                  <div className="p-8 relative z-10">
+                    <div className="prose prose-slate max-w-none 
+                      prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+                      prose-strong:text-slate-900 prose-strong:font-bold
+                      prose-ul:my-8 prose-li:text-slate-700 prose-li:leading-relaxed prose-li:mb-4 prose-li:text-lg
+                    ">
+                      <ReactMarkdown 
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          table: ({node, ...props}) => (
+                            <div className="overflow-x-auto my-8 rounded-2xl border border-slate-200 shadow-sm">
+                              <table className="w-full border-collapse [&_tr:last-child_td]:border-b-0" {...props} />
+                            </div>
+                          ),
+                          thead: ({node, ...props}) => <thead className="bg-slate-50" {...props} />,
+                          th: ({node, ...props}) => <th className="p-4 text-slate-900 font-black text-xs uppercase tracking-[0.15em] text-left border-b border-slate-200" {...props} />,
+                          td: ({node, ...props}) => <td className="p-4 text-slate-700 text-sm border-b border-slate-100 leading-relaxed" {...props} />,
+                          tr: ({node, ...props}) => <tr className="hover:bg-slate-50/30 transition-colors" {...props} />,
+                        }}
+                      >
+                        {question.explanation}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Memory Aid Card */}
                   {question.memoryTip && (
-                    <div className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-[2rem] p-8 text-white shadow-xl shadow-amber-500/20 relative overflow-hidden group">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-white/20 p-2.5 rounded-2xl backdrop-blur-md">
-                          <Lightbulb size={22} />
+                    <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden group">
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-primary-500/10 rounded-full -mr-20 -mt-20 blur-3xl transition-transform group-hover:scale-110"></div>
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent-teal/10 rounded-full -ml-16 -mb-16 blur-2xl"></div>
+                      
+                      <div className="flex items-center gap-3 mb-6 relative z-10">
+                        <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-xl border border-white/10 shadow-inner">
+                          <Lightbulb size={24} className="text-amber-400" />
                         </div>
-                        <span className="font-black text-xs uppercase tracking-[0.2em]">Memory Hack</span>
+                        <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-400">Memory Hack</span>
                       </div>
-                      <p className="text-white font-bold text-lg leading-relaxed italic">
-                        "{question.memoryTip}"
-                      </p>
+                      
+                      <div className="relative z-10">
+                        <p className="text-white font-bold text-xl leading-relaxed italic">
+                          "{question.memoryTip}"
+                        </p>
+                      </div>
+                      
+                      <div className="mt-8 flex justify-end relative z-10">
+                        <div className="p-2 bg-white/5 rounded-xl border border-white/5">
+                          <Sparkles size={16} className="text-primary-400" />
+                        </div>
+                      </div>
                     </div>
                   )}
 
                   {/* Difficulty Rating */}
-                  <div className="bg-white rounded-[2rem] p-8 border border-slate-200 flex flex-col justify-center items-center shadow-sm">
-                    <span className="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-6">Rate Difficulty</span>
+                  <div className="bg-white rounded-[2.5rem] p-8 border border-slate-200 flex flex-col justify-center items-center shadow-sm group">
+                    <span className="font-black text-slate-400 text-[10px] uppercase tracking-[0.3em] mb-8">Rate Question Difficulty</span>
                     <div className="flex justify-center gap-3">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
                           key={star}
                           onClick={() => onRateDifficulty(star)}
-                          className={`p-2.5 rounded-2xl transition-all duration-300 ${difficultyRating && difficultyRating >= star ? 'bg-amber-50 text-amber-500 scale-110 shadow-lg shadow-amber-500/10' : 'bg-slate-50 text-slate-300 hover:text-amber-200 hover:bg-amber-50/30'}`}
+                          className={cn(
+                            "p-3 rounded-2xl transition-all duration-500 relative group/star",
+                            difficultyRating && difficultyRating >= star 
+                              ? 'bg-amber-50 text-amber-500 scale-110 shadow-xl shadow-amber-500/10' 
+                              : 'bg-slate-50 text-slate-300 hover:text-amber-400 hover:bg-amber-50/50'
+                          )}
                         >
-                          <Star size={28} fill={difficultyRating && difficultyRating >= star ? "currentColor" : "none"} strokeWidth={2.5} />
+                          <Star 
+                            size={32} 
+                            fill={difficultyRating && difficultyRating >= star ? "currentColor" : "none"} 
+                            strokeWidth={2.5} 
+                            className={cn(
+                              "transition-transform duration-500",
+                              difficultyRating && difficultyRating >= star ? "rotate-12" : "group-hover/star:rotate-12"
+                            )}
+                          />
+                          {difficultyRating === star && (
+                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary-500 rounded-full border-2 border-white animate-ping" />
+                          )}
                         </button>
                       ))}
                     </div>
+                    <p className="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      {difficultyRating ? `Rated ${difficultyRating}/5` : "Select a rating"}
+                    </p>
                   </div>
                 </div>
               </div>
             )}
             
-            {/* Author Credit */}
-            <div className="pt-4 text-center">
-               <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">MULWA 😎</p>
-            </div>
+            {/* Author Credit Removed as it is now fixed in App.tsx */}
           </div>
         )}
       </div>

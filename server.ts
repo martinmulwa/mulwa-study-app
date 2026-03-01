@@ -50,6 +50,16 @@ async function startServer() {
     }
   });
 
+  app.get("/api/guests", (req, res) => {
+    try {
+      const guests = JSON.parse(fs.readFileSync(GUESTS_FILE, "utf-8"));
+      res.json(guests);
+    } catch (error) {
+      console.error("Error fetching guests:", error);
+      res.status(500).json({ error: "Failed to fetch guests" });
+    }
+  });
+
   app.post("/api/logs", (req, res) => {
     try {
       const newLog = {

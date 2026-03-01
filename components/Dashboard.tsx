@@ -1,7 +1,7 @@
 
 import React, { useMemo, useState } from 'react';
-import { UserProgress, UserLog } from '../types';
-import { TOTAL_LEVELS } from '../data/questions';
+import { UserProgress } from '../types';
+import { PAPER_LEVELS, PAPER_TOTAL_LEVELS } from '../data/questions';
 import { MNEMONICS, STUDY_SCHEDULE, STUDY_TECHNIQUES, LEITNER_SYSTEM } from '../data/toolkit';
 import { Lock, Zap, TrendingUp, AlertCircle, BookOpen, Star, Trash2, Calendar, Lightbulb, Brain, ChevronRight, Award, Flame, Target, ShieldCheck, Users, BarChart3, Clock, MapPin } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
@@ -9,7 +9,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 interface DashboardProps {
   username: string;
   progress: UserProgress;
-  onSelectLevel: (level: number) => void;
+  onSelectLevel: (paper: string, level: number) => void;
   onResetProgress: () => void;
 }
 
@@ -23,24 +23,24 @@ interface DashboardProps {
  */
 export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSelectLevel, onResetProgress }) => {
   const [activeTab, setActiveTab] = useState<'campaign' | 'toolkit' | 'admin'>('campaign');
-  const [logs, setLogs] = useState<UserLog[]>([]);
-  const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+  const [guests, setGuests] = useState<any[]>([]);
+  const [isLoadingGuests, setIsLoadingGuests] = useState(false);
 
   const isAdmin = username.toLowerCase() === 'admin';
 
-  // Fetch logs if admin
+  // Fetch guests if admin
   React.useEffect(() => {
     if (isAdmin && activeTab === 'admin') {
-      setIsLoadingLogs(true);
-      fetch('/api/logs')
+      setIsLoadingGuests(true);
+      fetch('/api/guests')
         .then(res => res.json())
         .then(data => {
-          setLogs(data);
-          setIsLoadingLogs(false);
+          setGuests(data);
+          setIsLoadingGuests(false);
         })
         .catch(err => {
-          console.error("Failed to fetch logs:", err);
-          setIsLoadingLogs(false);
+          console.error("Failed to fetch guests:", err);
+          setIsLoadingGuests(false);
         });
     }
   }, [isAdmin, activeTab]);
@@ -172,60 +172,69 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
         </div>
 
         {activeTab === 'campaign' ? (
-          <div className="space-y-8">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-display font-black text-slate-900 flex items-center gap-3">
-                <div className="bg-primary-100 p-2 rounded-xl text-primary-600">
-                  <TrendingUp size={20} />
-                </div>
-                Campaign Mode
-              </h3>
-              <div className="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Progress: </span>
-                <span className="text-sm font-black text-primary-600">{progress.unlockedQuizLevel} / {TOTAL_LEVELS}</span>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-6">
-              {Array.from({ length: TOTAL_LEVELS }, (_, i) => i + 1).map((level) => {
-                const isUnlocked = level <= progress.unlockedQuizLevel;
-                const isCurrent = level === progress.unlockedQuizLevel;
-                const isCompleted = level < progress.unlockedQuizLevel;
-                
-                return (
-                  <button
-                    key={level}
-                    onClick={() => isUnlocked && onSelectLevel(level)}
-                    disabled={!isUnlocked}
-                    className={`
-                      relative group aspect-square rounded-[2rem] flex flex-col items-center justify-center border-4 transition-all duration-500
-                      ${isCurrent 
-                        ? 'bg-primary-600 border-primary-400 text-white shadow-2xl shadow-primary-500/40 scale-110 z-10' 
-                        : isCompleted 
-                          ? 'bg-white border-emerald-100 text-emerald-600 hover:border-emerald-300 hover:shadow-xl' 
-                          : 'bg-slate-50 border-slate-100 text-slate-200 cursor-not-allowed'}
-                    `}
-                  >
-                    <div className="absolute top-3 right-3">
-                      {isCompleted ? <Star size={14} fill="currentColor" /> : !isUnlocked ? <Lock size={14} /> : <Zap size={14} className="animate-pulse" />}
-                    </div>
-                    
-                    <span className={`text-4xl font-display font-black mb-1 ${isCurrent ? 'text-white' : isCompleted ? 'text-emerald-600' : 'text-slate-300'}`}>
-                      {level}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
-                      {isUnlocked ? 'Level' : 'Locked'}
-                    </span>
-                    
-                    {isCurrent && (
-                      <div className="absolute -bottom-2 bg-amber-400 text-white text-[8px] font-black px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">
-                        Active
+          <div className="space-y-12">
+            {Object.entries(PAPER_LEVELS).map(([paper, levels]) => {
+              const totalLevels = PAPER_TOTAL_LEVELS[paper] || 0;
+              const unlockedLevel = progress.unlockedLevels[paper] || 1;
+              
+              return (
+                <div key={paper} className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-display font-black text-slate-900 flex items-center gap-3">
+                      <div className="bg-primary-100 p-2 rounded-xl text-primary-600">
+                        <TrendingUp size={18} />
                       </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                      {paper}
+                    </h3>
+                    <div className="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Progress: </span>
+                      <span className="text-sm font-black text-primary-600">{unlockedLevel} / {totalLevels}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-6">
+                    {Array.from({ length: totalLevels }, (_, i) => i + 1).map((level) => {
+                      const isUnlocked = level <= unlockedLevel;
+                      const isCurrent = level === unlockedLevel;
+                      const isCompleted = level < unlockedLevel;
+                      
+                      return (
+                        <button
+                          key={level}
+                          onClick={() => isUnlocked && onSelectLevel(paper, level)}
+                          disabled={!isUnlocked}
+                          className={`
+                            relative group aspect-square rounded-[2rem] flex flex-col items-center justify-center border-4 transition-all duration-500
+                            ${isCurrent 
+                              ? 'bg-primary-600 border-primary-400 text-white shadow-2xl shadow-primary-500/40 scale-110 z-10' 
+                              : isCompleted 
+                                ? 'bg-white border-emerald-100 text-emerald-600 hover:border-emerald-300 hover:shadow-xl' 
+                                : 'bg-slate-50 border-slate-100 text-slate-200 cursor-not-allowed'}
+                          `}
+                        >
+                          <div className="absolute top-3 right-3">
+                            {isCompleted ? <Star size={14} fill="currentColor" /> : !isUnlocked ? <Lock size={14} /> : <Zap size={14} className="animate-pulse" />}
+                          </div>
+                          
+                          <span className={`text-4xl font-display font-black mb-1 ${isCurrent ? 'text-white' : isCompleted ? 'text-emerald-600' : 'text-slate-300'}`}>
+                            {level}
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
+                            {isUnlocked ? 'Level' : 'Locked'}
+                          </span>
+                          
+                          {isCurrent && (
+                            <div className="absolute -bottom-2 bg-amber-400 text-white text-[8px] font-black px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">
+                              Active
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         ) : activeTab === 'toolkit' ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -331,8 +340,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 Admin Dashboard
               </h3>
               <div className="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Logs: </span>
-                <span className="text-sm font-black text-rose-600">{logs.length}</span>
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Guests: </span>
+                <span className="text-sm font-black text-rose-600">{guests.length}</span>
               </div>
             </div>
 
@@ -340,11 +349,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
-                  <BarChart3 size={14} /> User Activity (Last 10)
+                  <BarChart3 size={14} /> Login Frequency (Last 10)
                 </h4>
                 <div className="h-64 w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={logs.slice(-10)}>
+                    <BarChart data={guests.slice(-10)}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                       <XAxis dataKey="username" hide />
                       <YAxis hide />
@@ -352,7 +361,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                         contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                         cursor={{ fill: '#f8fafc' }}
                       />
-                      <Bar dataKey="xp" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="timestamp" fill="#6366f1" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -360,16 +369,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
               
               <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
-                  <Users size={14} /> Level Distribution
+                  <Users size={14} /> Unique Users
                 </h4>
                 <div className="h-64 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
-                        data={Object.entries(logs.reduce((acc, log) => {
-                          acc[log.level] = (acc[log.level] || 0) + 1;
+                        data={Object.entries(guests.reduce((acc, g) => {
+                          acc[g.username] = (acc[g.username] || 0) + 1;
                           return acc;
-                        }, {} as Record<number, number>)).map(([level, count]) => ({ name: `Level ${level}`, value: count }))}
+                        }, {} as Record<string, number>)).map(([user, count]) => ({ name: user, value: count }))}
                         cx="50%"
                         cy="50%"
                         innerRadius={60}
@@ -377,7 +386,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                         paddingAngle={5}
                         dataKey="value"
                       >
-                        {logs.map((_, index) => (
+                        {guests.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][index % 5]} />
                         ))}
                       </Pie>
@@ -391,8 +400,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
             {/* Logs Table */}
             <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100">
               <div className="p-8 border-b border-slate-50 flex justify-between items-center">
-                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">User Access Logs</h4>
-                {isLoadingLogs && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>}
+                <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">Guest Login Details</h4>
+                {isLoadingGuests && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>}
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
@@ -400,42 +409,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                     <tr className="bg-slate-50">
                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">User</th>
                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">Timestamp</th>
-                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">Level</th>
-                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">XP</th>
+                      <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">User Agent</th>
                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-slate-400">IP Address</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {logs.length > 0 ? [...logs].reverse().map((log, i) => (
+                    {guests.length > 0 ? [...guests].reverse().map((guest, i) => (
                       <tr key={i} className="border-t border-slate-50 hover:bg-slate-50/50 transition-colors">
                         <td className="p-6">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-black text-xs">
-                              {log.username[0].toUpperCase()}
+                              {guest.username[0].toUpperCase()}
                             </div>
-                            <span className="text-sm font-black text-slate-700">{log.username}</span>
+                            <span className="text-sm font-black text-slate-700">{guest.username}</span>
                           </div>
                         </td>
                         <td className="p-6">
                           <div className="flex items-center gap-2 text-slate-500">
                             <Clock size={14} />
-                            <span className="text-xs font-medium">{new Date(log.timestamp).toLocaleString()}</span>
+                            <span className="text-xs font-medium">{new Date(guest.timestamp).toLocaleString()}</span>
                           </div>
                         </td>
                         <td className="p-6">
-                          <span className="text-xs font-black text-primary-600 bg-primary-50 px-2 py-1 rounded-lg">Lvl {log.level}</span>
+                          <span className="text-[10px] font-medium text-slate-400 truncate max-w-[200px] block">{guest.userAgent}</span>
                         </td>
-                        <td className="p-6 text-sm font-bold text-slate-600">{log.xp} XP</td>
                         <td className="p-6">
                           <div className="flex items-center gap-2 text-slate-400">
                             <MapPin size={14} />
-                            <span className="text-xs font-mono">{log.ip || 'Unknown'}</span>
+                            <span className="text-xs font-mono">{guest.ip || 'Unknown'}</span>
                           </div>
                         </td>
                       </tr>
                     )) : (
                       <tr>
-                        <td colSpan={5} className="p-12 text-center text-slate-400 italic text-sm">No logs found.</td>
+                        <td colSpan={4} className="p-12 text-center text-slate-400 italic text-sm">No guest logs found.</td>
                       </tr>
                     )}
                   </tbody>
@@ -454,7 +461,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 <Trash2 size={16} />
                 Reset All Progress
             </button>
-            <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">MULWA 😎</p>
         </div>
       </div>
     </div>

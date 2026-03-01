@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { QUESTIONS, LEVELS, TOTAL_LEVELS } from './data/questions';
+import { QUESTIONS, PAPER_LEVELS, PAPER_TOTAL_LEVELS } from './data/questions';
 import { GameState, QuizState, UserProgress } from './types';
 import { QuizCard } from './components/QuizCard';
 import { LoginScreen } from './components/LoginScreen';
@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   
   const [activeSession, setActiveSession] = useState(QUESTIONS); 
+  const [currentPaper, setCurrentPaper] = useState<string>(Object.keys(PAPER_LEVELS)[0] || '');
   const [currentLevelId, setCurrentLevelId] = useState<number>(1);
 
   const [quizState, setQuizState] = useState<QuizState>({
@@ -30,7 +31,7 @@ const App: React.FC = () => {
   const defaultProgress: UserProgress = {
     xp: 0,
     level: 1, // RPG Level
-    unlockedQuizLevel: 1, // Game Level (1-7)
+    unlockedLevels: Object.keys(PAPER_LEVELS).reduce((acc, paper) => ({ ...acc, [paper]: 1 }), {}),
     bestStreak: 0,
     questionsAnswered: 0,
     categoryStats: {},
@@ -50,7 +51,16 @@ const App: React.FC = () => {
     if (currentUser) {
       const savedData = localStorage.getItem(`mulwa_study_progress_${currentUser.toLowerCase()}`);
       if (savedData) {
-        setUserProgress(JSON.parse(savedData));
+        const parsed = JSON.parse(savedData);
+        // Migration: if old progress exists, convert it
+        if (parsed.unlockedQuizLevel && !parsed.unlockedLevels) {
+          parsed.unlockedLevels = Object.keys(PAPER_LEVELS).reduce((acc, paper) => ({ ...acc, [paper]: 1 }), {});
+          // Maybe assign the old level to the first paper?
+          const firstPaper = Object.keys(PAPER_LEVELS)[0];
+          if (firstPaper) parsed.unlockedLevels[firstPaper] = parsed.unlockedQuizLevel;
+          delete parsed.unlockedQuizLevel;
+        }
+        setUserProgress(parsed);
       } else {
         setUserProgress(defaultProgress);
       }
@@ -110,9 +120,10 @@ const App: React.FC = () => {
     }
   };
 
-  const startLevel = (level: number) => {
-    const questions = LEVELS[level] || LEVELS[1];
+  const startLevel = (paper: string, level: number) => {
+    const questions = PAPER_LEVELS[paper]?.[level] || PAPER_LEVELS[paper]?.[1] || [];
     setActiveSession(questions);
+    setCurrentPaper(paper);
     setCurrentLevelId(level);
     setGameState(GameState.PLAYING);
     setQuizState({
@@ -224,14 +235,16 @@ const App: React.FC = () => {
     setGameState(GameState.RESULTS);
     const passRate = (quizState.correctAnswers / activeSession.length) * 100;
     
-    if (currentUser) {
-      logUserAction(currentUser);
-    }
+    const unlockedForPaper = userProgress.unlockedLevels[currentPaper] || 1;
+    const totalForPaper = PAPER_TOTAL_LEVELS[currentPaper] || 1;
 
-    if (passRate >= 70 && currentLevelId === userProgress.unlockedQuizLevel && userProgress.unlockedQuizLevel < TOTAL_LEVELS) {
+    if (passRate >= 70 && currentLevelId === unlockedForPaper && unlockedForPaper < totalForPaper) {
        setUserProgress(prev => ({
          ...prev,
-         unlockedQuizLevel: prev.unlockedQuizLevel + 1
+         unlockedLevels: {
+           ...prev.unlockedLevels,
+           [currentPaper]: unlockedForPaper + 1
+         }
        }));
        confetti({ 
          particleCount: 200, 
@@ -264,132 +277,143 @@ const App: React.FC = () => {
 
   // --- Views ---
 
-  if (gameState === GameState.LOGIN) return <LoginScreen onLogin={handleLogin} />;
+  const renderView = () => {
+    if (gameState === GameState.LOGIN) return <LoginScreen onLogin={handleLogin} />;
 
-  if (gameState === GameState.DASHBOARD) {
-    return <Dashboard username={currentUser || ''} progress={userProgress} onSelectLevel={startLevel} onResetProgress={handleResetProgress} />;
-  }
+    if (gameState === GameState.DASHBOARD) {
+      return <Dashboard username={currentUser || ''} progress={userProgress} onSelectLevel={startLevel} onResetProgress={handleResetProgress} />;
+    }
 
-  if (gameState === GameState.PLAYING) {
-    const currentQ = activeSession[quizState.currentQuestionIndex];
-    const progressPercent = ((quizState.currentQuestionIndex + 1) / activeSession.length) * 100;
+    if (gameState === GameState.PLAYING) {
+      const currentQ = activeSession[quizState.currentQuestionIndex];
+      const progressPercent = ((quizState.currentQuestionIndex + 1) / activeSession.length) * 100;
 
-    return (
-      <div className="min-h-screen flex flex-col max-w-5xl mx-auto md:px-6 bg-[#F8FAFC]">
-        {/* Sticky Header */}
-        <div className="bg-white/90 backdrop-blur-xl border-b border-slate-200/60 px-4 py-4 sticky top-0 z-30 md:rounded-b-[2rem] md:mx-4 md:mt-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-           <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center gap-2">
-                <button onClick={() => setGameState(GameState.DASHBOARD)} className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl transition-all active:scale-90">
-                  <RotateCcw size={20} />
-                </button>
-                <div className="hidden sm:flex flex-col">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Level {currentLevelId}</span>
-                  <span className="text-xs font-bold text-slate-700">Question {quizState.currentQuestionIndex + 1} of {activeSession.length}</span>
+      return (
+        <div className="min-h-screen flex flex-col max-w-5xl mx-auto md:px-6 bg-[#F8FAFC]">
+          {/* Sticky Header */}
+          <div className="bg-white/90 backdrop-blur-xl border-b border-slate-200/60 px-4 py-4 sticky top-0 z-30 md:rounded-b-[2rem] md:mx-4 md:mt-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+             <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setGameState(GameState.DASHBOARD)} className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl transition-all active:scale-90">
+                    <RotateCcw size={20} />
+                  </button>
+                  <div className="hidden sm:flex flex-col">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Level {currentLevelId}</span>
+                    <span className="text-xs font-bold text-slate-700">Question {quizState.currentQuestionIndex + 1} of {activeSession.length}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 bg-amber-50 text-amber-600 px-4 py-2 rounded-2xl border border-amber-100 shadow-sm">
-                  <Sparkles size={16} className="animate-pulse" />
-                  <span className="font-black text-sm">{quizState.streak}</span>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 bg-amber-50 text-amber-600 px-4 py-2 rounded-2xl border border-amber-100 shadow-sm">
+                    <Sparkles size={16} className="animate-pulse" />
+                    <span className="font-black text-sm">{quizState.streak}</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-primary-50 text-primary-600 px-4 py-2 rounded-2xl border border-primary-100 shadow-sm">
+                    <Trophy size={16} />
+                    <span className="font-black text-sm">{quizState.score}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 bg-primary-50 text-primary-600 px-4 py-2 rounded-2xl border border-primary-100 shadow-sm">
-                  <Trophy size={16} />
-                  <span className="font-black text-sm">{quizState.score}</span>
-                </div>
-              </div>
-           </div>
-           <div className="relative h-3 bg-slate-100 rounded-full overflow-hidden">
-             <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 via-primary-400 to-accent-teal transition-all duration-700 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
-           </div>
-        </div>
-
-        <div className="flex-1 p-4 md:p-10 flex flex-col items-center justify-start md:justify-center">
-          <QuizCard 
-            question={currentQ}
-            onAnswer={handleAnswer}
-            showExplanation={showExplanation}
-            userSelected={selectedOption}
-            showRationale={showRationale}
-            onToggleRationale={() => setShowRationale(prev => !prev)}
-            onRateDifficulty={handleRateDifficulty}
-            difficultyRating={difficultyRating}
-          />
-        </div>
-
-        {/* Navigation Bar */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 md:p-8 flex justify-center items-center gap-4 bg-gradient-to-t from-white via-white/80 to-transparent z-40 pointer-events-none">
-          <div className="flex items-center gap-3 pointer-events-auto">
-            {quizState.currentQuestionIndex > 0 && (
-              <button
-                onClick={handleBackQuestion}
-                className="bg-white text-slate-700 p-4 rounded-2xl font-bold shadow-xl border border-slate-200 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90"
-              >
-                <ChevronLeft size={24} />
-              </button>
-            )}
-            
-            {showExplanation && (
-              <button
-                onClick={handleNextQuestion}
-                className="bg-slate-900 text-white pl-8 pr-6 py-4 rounded-2xl font-black text-lg shadow-2xl shadow-slate-900/30 flex items-center gap-4 transition-all hover:scale-105 active:scale-95 animate-slide-up"
-              >
-                <span>{quizState.currentQuestionIndex + 1 === activeSession.length ? 'Finish Session' : 'Next Question'}</span>
-                <div className="bg-white/20 rounded-xl p-1.5"><ChevronRight size={20} /></div>
-              </button>
-            )}
-          </div>
-        </div>
-        
-        {/* Footer Credit */}
-        <footer className="py-8 text-center text-slate-300 text-[10px] font-black uppercase tracking-[0.4em] mt-auto">
-          MULWA 😎
-        </footer>
-      </div>
-    );
-  }
-
-  if (gameState === GameState.RESULTS) {
-    const percentage = Math.round((quizState.correctAnswers / activeSession.length) * 100);
-    const isSuccess = percentage >= 70;
-
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-900/10 backdrop-blur-md">
-        <div className="bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden max-w-lg w-full relative animate-scale-in border border-white">
-          <div className={`p-12 text-center relative overflow-hidden ${isSuccess ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : 'bg-gradient-to-br from-rose-500 to-orange-600'}`}>
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:20px_20px]"></div>
-            <h1 className="text-7xl font-display font-black text-white mb-2 relative z-10">{percentage}%</h1>
-            <p className="text-white/90 font-bold text-xl relative z-10">{isSuccess ? "Level Mastered!" : "Keep Pushing!"}</p>
-          </div>
-          
-          <div className="p-10 space-y-6">
-             <div className="grid grid-cols-2 gap-4">
-               <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
-                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Correct</p>
-                 <p className="text-2xl font-display font-bold text-emerald-600">{quizState.correctAnswers}</p>
-               </div>
-               <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
-                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">XP Earned</p>
-                 <p className="text-2xl font-display font-bold text-primary-600">+{quizState.score}</p>
-               </div>
              </div>
+             <div className="relative h-3 bg-slate-100 rounded-full overflow-hidden">
+               <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 via-primary-400 to-accent-teal transition-all duration-700 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
+             </div>
+          </div>
 
-             <button 
-               onClick={() => setGameState(GameState.DASHBOARD)} 
-               className="w-full bg-slate-900 text-white py-5 rounded-[1.5rem] font-black text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95"
-             >
-               Return to Dashboard
-             </button>
-             
-             <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest opacity-0">MULWA 😎</p>
+          <div className="flex-1 p-4 md:p-10 flex flex-col items-center justify-start md:justify-center">
+            <QuizCard 
+              question={currentQ}
+              onAnswer={handleAnswer}
+              showExplanation={showExplanation}
+              userSelected={selectedOption}
+              showRationale={showRationale}
+              onToggleRationale={() => setShowRationale(prev => !prev)}
+              onRateDifficulty={handleRateDifficulty}
+              difficultyRating={difficultyRating}
+            />
+          </div>
+
+          {/* Navigation Bar */}
+          <div className="fixed bottom-0 left-0 right-0 p-4 md:p-8 flex justify-center items-center gap-4 bg-gradient-to-t from-white via-white/80 to-transparent z-40 pointer-events-none">
+            <div className="flex items-center gap-3 pointer-events-auto">
+              {quizState.currentQuestionIndex > 0 && (
+                <button
+                  onClick={handleBackQuestion}
+                  className="bg-white text-slate-700 p-4 rounded-2xl font-bold shadow-xl border border-slate-200 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+              )}
+              
+              {showExplanation && (
+                <button
+                  onClick={handleNextQuestion}
+                  className="bg-slate-900 text-white pl-8 pr-6 py-4 rounded-2xl font-black text-lg shadow-2xl shadow-slate-900/30 flex items-center gap-4 transition-all hover:scale-105 active:scale-95 animate-slide-up"
+                >
+                  <span>{quizState.currentQuestionIndex + 1 === activeSession.length ? 'Finish Session' : 'Next Question'}</span>
+                  <div className="bg-white/20 rounded-xl p-1.5"><ChevronRight size={20} /></div>
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
-  return null;
+    if (gameState === GameState.RESULTS) {
+      const percentage = Math.round((quizState.correctAnswers / activeSession.length) * 100);
+      const isSuccess = percentage >= 70;
+
+      return (
+        <div className="min-h-screen flex items-center justify-center p-4 bg-slate-900/10 backdrop-blur-md">
+          <div className="bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden max-w-lg w-full relative animate-scale-in border border-white">
+            <div className={`p-12 text-center relative overflow-hidden ${isSuccess ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : 'bg-gradient-to-br from-rose-500 to-orange-600'}`}>
+              <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:20px_20px]"></div>
+              <h1 className="text-7xl font-display font-black text-white mb-2 relative z-10">{percentage}%</h1>
+              <p className="text-white/90 font-bold text-xl relative z-10">{isSuccess ? "Level Mastered!" : "Keep Pushing!"}</p>
+            </div>
+            
+            <div className="p-10 space-y-6">
+               <div className="grid grid-cols-2 gap-4">
+                 <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Correct</p>
+                   <p className="text-2xl font-display font-bold text-emerald-600">{quizState.correctAnswers}</p>
+                 </div>
+                 <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">XP Earned</p>
+                   <p className="text-2xl font-display font-bold text-primary-600">+{quizState.score}</p>
+                 </div>
+               </div>
+
+               <button 
+                 onClick={() => setGameState(GameState.DASHBOARD)} 
+                 className="w-full bg-slate-900 text-white py-5 rounded-[1.5rem] font-black text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95"
+               >
+                 Return to Dashboard
+               </button>
+               
+               <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest opacity-0">MULWA 😎</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="relative min-h-screen">
+      {renderView()}
+      {/* Standard Footer Watermark */}
+      <footer className="py-8 text-center bg-slate-50 border-t border-slate-100">
+        <div className="inline-flex items-center gap-2 px-6 py-2 bg-white/40 backdrop-blur-md border border-white/20 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all hover:bg-white/60">
+          <span className="text-slate-400 text-[9px] font-black uppercase tracking-[0.5em] leading-none">
+            MULWA <span className="text-slate-300">😎</span>
+          </span>
+        </div>
+      </footer>
+    </div>
+  );
 };
 
 export default App;

@@ -18,7 +18,6 @@ export interface Question {
   topic: string;
   sourcePaper: string;
   explanation: string;
-  whyWrong?: string[];
   memoryTip?: string;
   difficulty: number; // 1 (Easy) to 5 (Hard)
 }
@@ -62,7 +61,7 @@ export interface QuestionProgress {
 export interface UserProgress {
   xp: number;
   level: number; // Current RPG Level (cosmetic)
-  unlockedQuizLevel: number; // The actual quiz level (1-60)
+  unlockedLevels: Record<string, number>; // Unlocked level per paper (e.g., {"Paper 1": 1, "Paper 2": 1})
   bestStreak: number;
   questionsAnswered: number;
   questionStats: Record<string, QuestionProgress>; 
