@@ -48,6 +48,10 @@ const App: React.FC = () => {
 
   // --- Effects ---
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [gameState]);
+
+  useEffect(() => {
     if (currentUser) {
       const savedData = localStorage.getItem(`mulwa_study_progress_${currentUser.toLowerCase()}`);
       if (savedData) {

@@ -1,6 +1,7 @@
 
 import { Question } from '../types';
 import { SEPTEMBER_2023_PAPER_2 } from './paper2';
+import { MED_SURG_EXAM_PAPER } from './medSurgPaper';
 
 export const SEPTEMBER_2023_PAPER: Question[] = [
   {
@@ -36,6 +37,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "Functions of Muscles",
     sourcePaper: "September 2023 Past Paper",
     explanation: "The primary function of the muscular system is movement. Muscles contract (shorten) and relax to pull on bones, move joints, and create all body movements — from walking and running to swallowing and blinking. There are over 600 muscles in the human body, accounting for approximately 40% of total body weight.\n\n**Why each option is wrong:**\n\n- **A. Protection of organs** — protection is primarily a function of the skeletal system (skull, rib cage, vertebral column). While abdominal muscles do provide some soft-tissue protection, this is not the muscular system's primary function.\n- **C. Production of blood cells** — blood cell production (haematopoiesis) occurs in the red bone marrow inside certain bones. This is a skeletal system function.\n- **D. Storage of minerals** — calcium and phosphorus are stored in bone (skeletal system). Muscles store glycogen (energy fuel) but not minerals.",
+    memoryTip: "Muscles Move. Both start with M. Think of your muscles as the body's motors.",
     difficulty: 1
   },
   {
@@ -59,6 +61,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "System Organisation",
     sourcePaper: "September 2023 Past Paper",
     explanation: "The primary anatomical division of the nervous system — the most fundamental way it is classified — is into the Central Nervous System (CNS) and the Peripheral Nervous System (PNS). The CNS consists of the brain and spinal cord (the command centre). The PNS consists of all nerves outside the brain and spinal cord (the wiring connecting the CNS to the rest of the body).\n\n**Why each option is wrong:**\n\n- **A. Sensory and motor** — these describe the direction of nerve signal travel. Sensory (afferent) carries signals toward the CNS; motor (efferent) carries commands away from the CNS. These are functional descriptions of nerve fibres, not the primary structural division.\n- **C. Sympathetic and parasympathetic** — these are the two branches of the Autonomic Nervous System (ANS), which is itself a subdivision of the PNS. This is a third-level division, not the primary one.\n- **D. Somatic and autonomic** — these are the two divisions of the peripheral nervous system specifically. A correct division, but it is the second level — a subdivision of the PNS — not the top-level primary division.\n\n**Nervous system hierarchy:**\n\n- Nervous System\n  - CNS (Brain + Spinal Cord)\n  - PNS (All other nerves)\n    - Somatic (voluntary — skeletal muscles)\n    - Autonomic (involuntary — organs)\n      - Sympathetic (fight or flight)\n      - Parasympathetic (rest and digest)",
+    memoryTip: "Central = Brain/Spine (the center). Peripheral = Everything else (the edges/periphery).",
     difficulty: 2
   },
   {
@@ -82,6 +85,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "System Functions",
     sourcePaper: "September 2023 Past Paper",
     explanation: "The primary function of the respiratory system is gas exchange — bringing oxygen (O₂) into the body and expelling carbon dioxide (CO₂). This process occurs in the alveoli (tiny air sacs in the lungs), where O₂ crosses from inhaled air into the bloodstream and CO₂ crosses from the blood back into the air to be exhaled. All body cells need oxygen to produce energy; CO₂ is a waste product of that energy production.\n\n**Why each option is wrong:**\n\n- **A. Pumping blood** — this is the function of the heart (cardiovascular system). The lungs receive blood for oxygenation but do not pump it.\n- **C. Filtering waste** — filtering blood waste is primarily the function of the kidneys (urinary system). While the lungs do remove CO₂ (a metabolic waste gas), they are not described primarily as a waste filtering organ.\n- **D. Producing hormones** — this is the function of the endocrine system (pituitary, thyroid, adrenal glands, etc.). The respiratory system does not produce hormones.",
+    memoryTip: "Respiration = Re-oxygenation. Breathing in O2, out CO2. Think of the lungs as the body's air filter.",
     difficulty: 1
   },
   {
@@ -141,6 +145,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "Kidney Function",
     sourcePaper: "September 2023 Past Paper",
     explanation: "The kidneys are two bean-shaped organs sitting behind the peritoneum (the lining of the abdominal cavity), one on each side of the spine. They filter approximately 180 litres of blood per day through millions of tiny filtering units called nephrons, producing approximately 1–2 litres of urine per day. The kidneys also regulate blood pressure (via the hormone renin), maintain blood pH, control water and electrolyte balance, and produce erythropoietin (which stimulates red blood cell production).\n\n**Why each option is wrong:**\n\n- **A. Liver** — detoxifies the blood and converts ammonia to urea (which the kidneys then excrete as part of urine), but the liver does not filter blood the same way kidneys do and does not produce urine.\n- **B. Pancreas** — produces digestive enzymes and hormones (insulin and glucagon). Has no role in blood filtration or urine production.\n- **D. Spleen** — filters blood by removing old and damaged red blood cells, and is part of the lymphatic/immune system. However, it does not produce urine.",
+    memoryTip: "KIDNEY = KID-ney = the body's built-in KID-ney filter. It filters blood and makes urine. Think of it as the body's water treatment plant.",
     difficulty: 1
   },
   {
@@ -320,6 +325,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "Upper GI Tract",
     sourcePaper: "September 2023 Past Paper",
     explanation: "The esophagus (oesophagus) is a muscular tube approximately 25 cm long that carries food from the pharynx (throat, at the back of the mouth) down through the chest and diaphragm to the stomach. Food moves through it by rhythmic muscular contractions called peristalsis. The esophagus does not digest food — it is purely a transport tube.\n\n**Why each option is wrong:**\n\n- **B. Stomach to the small intestine** — this connection is controlled by the pyloric valve (pyloric sphincter). The first section of the small intestine, which receives stomach contents, is called the duodenum.\n- **C. Small intestine to the large intestine** — this junction is called the ileocecal valve, where the ileum (final section of the small intestine) meets the cecum (first section of the large intestine).\n- **D. Pharynx to the trachea** — the trachea (windpipe) is the airway, not the food path. The pharynx connects to both the esophagus (food) and the trachea (air). The esophagus and trachea run side by side in the neck — which is why there is a risk of choking if food enters the trachea.",
+    memoryTip: "Esophagus = Eating pipe. It carries food down to the stomach. Think of it as the body's food slide.",
     difficulty: 1
   },
   {
@@ -595,6 +601,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
     topic: "Respiratory Muscles",
     sourcePaper: "September 2023 Past Paper",
     explanation: "Breathing (ventilation) requires two main muscle groups working together:\n\n- **The Diaphragm** is the primary breathing muscle — a large dome-shaped muscle below the lungs, separating the chest cavity from the abdominal cavity. When it contracts it flattens downward, increasing chest volume and drawing air in (inhalation). When it relaxes it domes upward, reducing chest volume and pushing air out (exhalation). It provides approximately 60–80% of the work of normal, quiet breathing.\n- **The Intercostal muscles** (between the ribs — inter = between, costal = ribs) are the secondary breathing muscles. The external intercostals lift the ribs upward and outward during inhalation, further expanding the chest. The internal intercostals assist with forced exhalation. Both muscle groups work together, making D the most complete and correct answer.\n\n**Why each option is wrong:**\n\n- **A. Intercostal muscles alone** — incomplete. This ignores the dominant role of the diaphragm, which does the majority of the breathing work.\n- **B. Diaphragm alone** — incomplete. While the diaphragm is the primary breathing muscle, the intercostals contribute significantly and cannot be excluded.\n- **C. Abdominal muscles** — these are accessory muscles used only during forced exhalation (coughing, sneezing, blowing out candles, vigorous exercise). They are not involved in normal quiet breathing and are not primary breathing muscles.",
+    memoryTip: "Breathing = Both Diaphragm and Intercostals. The diaphragm is the floor of the chest, and the intercostals are the walls. Both must move to change the room's volume.",
     difficulty: 2
   },
   {
@@ -839,7 +846,7 @@ export const SEPTEMBER_2023_PAPER: Question[] = [
   }
 ];
 
-export const QUESTIONS = [...SEPTEMBER_2023_PAPER, ...SEPTEMBER_2023_PAPER_2];
+export const QUESTIONS = [...SEPTEMBER_2023_PAPER, ...SEPTEMBER_2023_PAPER_2, ...MED_SURG_EXAM_PAPER];
 
 // Group by paper
 export const QUESTIONS_BY_PAPER: Record<string, Question[]> = {};
@@ -850,22 +857,84 @@ QUESTIONS.forEach(q => {
   QUESTIONS_BY_PAPER[q.sourcePaper].push(q);
 });
 
-// Organize each paper into levels
-export const PAPER_LEVELS: Record<string, Record<number, Question[]>> = {};
+// Organize each paper into branching levels
+export interface Track {
+  name: string;
+  levels: Question[][];
+}
+
+export interface PaperStructure {
+  broadLevels: Question[][];
+  tracks: Track[];
+}
+
+export const PAPER_STRUCTURES: Record<string, PaperStructure> = {};
 export const PAPER_TOTAL_LEVELS: Record<string, number> = {};
+
+const TRACK_DEFINITIONS = [
+  {
+    name: "Anatomy & Systems",
+    categories: ["Skeletal System", "Muscular System", "Integumentary System", "Nervous System", "Special Senses", "Neurological System", "Musculoskeletal System", "Reproductive System"]
+  },
+  {
+    name: "Physiology & Regulation",
+    categories: ["Cardiovascular System", "Respiratory System", "Digestive System", "Urinary System", "Endocrine System", "Homeostasis", "Homeostasis & Feedback", "Urinary / Fluid Balance", "Homeostasis & Fluid Balance", "Urinary / Endocrine", "Gastrointestinal System", "Renal System", "Fluid & Electrolytes"]
+  },
+  {
+    name: "Cellular & Immune",
+    categories: ["Cell Biology & Tissues", "Blood & Haematology", "Lymphatic & Immune System", "Chemistry & Cell Biology", "Haematology", "Oncology", "Immune System"]
+  }
+];
 
 Object.entries(QUESTIONS_BY_PAPER).forEach(([paper, questions]) => {
   // Sort by difficulty within the paper
   const sorted = [...questions].sort((a, b) => a.difficulty - b.difficulty);
-  const totalLevels = Math.ceil(sorted.length / 10);
-  PAPER_TOTAL_LEVELS[paper] = totalLevels;
   
-  PAPER_LEVELS[paper] = {};
-  for (let i = 1; i <= totalLevels; i++) {
-    PAPER_LEVELS[paper][i] = sorted.slice((i - 1) * 10, i * 10);
+  // Broad levels: first 20 questions (2 levels)
+  const broadQuestions = sorted.slice(0, 20);
+  const remainingQuestions = sorted.slice(20);
+  
+  const broadLevels: Question[][] = [];
+  for (let i = 0; i < broadQuestions.length; i += 10) {
+    broadLevels.push(broadQuestions.slice(i, i + 10));
   }
+  
+  const tracks: Track[] = TRACK_DEFINITIONS.map(def => {
+    const trackQs = remainingQuestions.filter(q => def.categories.includes(q.category));
+    const trackLevels: Question[][] = [];
+    for (let i = 0; i < trackQs.length; i += 10) {
+      trackLevels.push(trackQs.slice(i, i + 10));
+    }
+    return { name: def.name, levels: trackLevels };
+  }).filter(t => t.levels.length > 0);
+  
+  // Any leftover questions that didn't match a track category
+  const assignedQs = new Set(tracks.flatMap(t => t.levels.flat()).map(q => q.id));
+  const unassignedQs = remainingQuestions.filter(q => !assignedQs.has(q.id));
+  if (unassignedQs.length > 0) {
+    const extraLevels: Question[][] = [];
+    for (let i = 0; i < unassignedQs.length; i += 10) {
+      extraLevels.push(unassignedQs.slice(i, i + 10));
+    }
+    tracks.push({ name: "General Practice", levels: extraLevels });
+  }
+
+  PAPER_STRUCTURES[paper] = { broadLevels, tracks };
+  
+  // For backward compatibility
+  PAPER_TOTAL_LEVELS[paper] = broadLevels.length + tracks.reduce((acc, t) => acc + t.levels.length, 0);
 });
 
 // For backward compatibility or default view
 export const TOTAL_LEVELS = Math.max(...Object.values(PAPER_TOTAL_LEVELS));
+export const PAPER_LEVELS: Record<string, Record<number, Question[]>> = {};
+
+Object.entries(PAPER_STRUCTURES).forEach(([paper, structure]) => {
+  PAPER_LEVELS[paper] = {};
+  let levelIdx = 1;
+  structure.broadLevels.forEach(l => { PAPER_LEVELS[paper][levelIdx++] = l; });
+  structure.tracks.forEach(t => {
+    t.levels.forEach(l => { PAPER_LEVELS[paper][levelIdx++] = l; });
+  });
+});
 export const LEVELS = PAPER_LEVELS[Object.keys(PAPER_LEVELS)[0]] || {};

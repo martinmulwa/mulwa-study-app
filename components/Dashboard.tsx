@@ -61,9 +61,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
   const xpProgress = ((progress.xp % 500) / 500) * 100;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-10 pb-32">
+    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-10 pb-32 transition-colors duration-300">
       <div className="max-w-6xl mx-auto space-y-10 animate-slide-up">
         
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
+              <Users size={24} />
+            </div>
+            <div>
+              <h1 className="text-2xl font-display font-black text-slate-900">Welcome, {username}</h1>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Nursing Excellence Awaits</p>
+            </div>
+          </div>
+        </div>
+
         {/* Gamified Header Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* XP & Level Card */}
@@ -94,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           </div>
 
           {/* Streak & Accuracy Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between group">
+          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between group transition-colors duration-300">
              <div className="flex justify-between items-start mb-4">
                <h2 className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">Performance</h2>
                <Flame className="text-orange-500 group-hover:animate-bounce" size={20} />
@@ -118,7 +131,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           </div>
 
           {/* Focus Areas Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between">
+          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between transition-colors duration-300">
              <div>
                <h2 className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px] mb-6 flex items-center gap-2">
                  <AlertCircle size={14} className="text-rose-500" /> Improvement Areas
@@ -240,7 +253,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Mnemonics */}
             <div className="lg:col-span-2 space-y-10">
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
                   <div className="bg-amber-100 p-2 rounded-xl text-amber-600">
                     <Lightbulb size={20} />
@@ -259,7 +272,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
               </div>
 
               {/* Study Schedule */}
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
                   <div className="bg-primary-100 p-2 rounded-xl text-primary-600">
                     <Calendar size={20} />
@@ -311,7 +324,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 </div>
               </div>
 
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
+              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
                   <Zap className="text-primary-600" size={24} />
                   Techniques
@@ -319,10 +332,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 <div className="space-y-6">
                   {STUDY_TECHNIQUES.map((tech, i) => (
                     <div key={i} className="group">
-                      <p className="font-black text-slate-900 mb-2 flex items-center gap-2">
+                      <div className="font-black text-slate-900 mb-2 flex items-center gap-2">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary-500"></div>
                         {tech.name}
-                      </p>
+                      </div>
                       <p className="text-xs text-slate-500 font-medium leading-relaxed pl-3.5 border-l border-slate-100 group-hover:border-primary-200 transition-colors">{tech.description}</p>
                     </div>
                   ))}
@@ -347,7 +360,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
 
             {/* Admin Stats Visualization */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
+              <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 transition-colors duration-300">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
                   <BarChart3 size={14} /> Login Frequency (Last 10)
                 </h4>
@@ -358,7 +371,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                       <XAxis dataKey="username" hide />
                       <YAxis hide />
                       <Tooltip 
-                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: '#ffffff', color: '#0f172a' }}
                         cursor={{ fill: '#f8fafc' }}
                       />
                       <Bar dataKey="timestamp" fill="#6366f1" radius={[4, 4, 0, 0]} />
@@ -367,7 +380,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 </div>
               </div>
               
-              <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100">
+              <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 transition-colors duration-300">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
                   <Users size={14} /> Unique Users
                 </h4>
@@ -390,7 +403,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                           <Cell key={`cell-${index}`} fill={['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][index % 5]} />
                         ))}
                       </Pie>
-                      <Tooltip />
+                      <Tooltip 
+                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: '#ffffff', color: '#0f172a' }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -398,7 +413,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
             </div>
 
             {/* Logs Table */}
-            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100">
+            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 transition-colors duration-300">
               <div className="p-8 border-b border-slate-50 flex justify-between items-center">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">Guest Login Details</h4>
                 {isLoadingGuests && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>}

@@ -1,0 +1,21 @@
+export const KEY_TERMS: Record<string, string> = {
+  "Skeletal System": "The framework of the body, consisting of bones and other connective tissues, which protects and supports the body tissues and internal organs.",
+  "Muscular System": "An organ system consisting of skeletal, smooth and cardiac muscles. It permits movement of the body, maintains posture and circulates blood throughout the body.",
+  "Integumentary System": "The organ system comprising the skin, hair, and nails, acting as a physical barrier between the external environment and the internal environment.",
+  "Nervous System": "The highly complex part of an animal that coordinates its actions by transmitting signals to and from different parts of its body.",
+  "Special Senses": "The senses that have specialized organs devoted to them: vision (the eye), hearing and balance (the ear, which includes the auditory system and vestibular system), smell (the nose), and taste (the tongue).",
+  "Cardiovascular System": "The system that circulates blood and lymph through the body, consisting of the heart, blood vessels, blood, lymph, and the lymphatic vessels and glands.",
+  "Respiratory System": "The set of organs that allows a person to breathe and exchange oxygen and carbon dioxide throughout the body.",
+  "Digestive System": "The system of organs responsible for getting food into and out of the body and for making use of food to keep the body healthy.",
+  "Urinary System": "The organ system that produces, stores, and eliminates urine. In humans it includes two kidneys, two ureters, the bladder, the urethra, and the sphincter muscles.",
+  "Endocrine System": "The collection of glands that produce hormones that regulate metabolism, growth and development, tissue function, sexual function, reproduction, sleep, and mood.",
+  "Homeostasis": "The state of steady internal, physical, and chemical conditions maintained by living systems.",
+  "Homeostasis & Feedback": "The mechanisms by which the body maintains homeostasis, often involving negative and positive feedback loops.",
+  "Urinary / Fluid Balance": "The regulation of the amount of water in the body, closely tied to the urinary system's function of filtering blood.",
+  "Homeostasis & Fluid Balance": "The maintenance of the correct amount of fluid in the body's compartments, essential for cellular function.",
+  "Cell Biology & Tissues": "The study of cell structure and function, and how cells are organized into tissues to perform specific functions.",
+  "Blood & Haematology": "The study of blood, the blood-forming organs, and blood diseases.",
+  "Lymphatic & Immune System": "The network of vessels through which lymph drains from the tissues into the blood, and the complex system of cells and proteins that defends the body against infection.",
+  "Chemistry & Cell Biology": "The chemical processes and substances occurring within living cells.",
+  "General Practice": "A broad category covering various fundamental medical and nursing concepts not strictly confined to a single body system."
+};

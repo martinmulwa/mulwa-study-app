@@ -211,7 +211,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
                   )}
 
                   {/* Difficulty Rating */}
-                  <div className="bg-white rounded-[2.5rem] p-8 border border-slate-200 flex flex-col justify-center items-center shadow-sm group">
+                  <div className="bg-white rounded-[2.5rem] p-8 border border-slate-200 flex flex-col justify-center items-center shadow-sm group transition-colors duration-300">
                     <span className="font-black text-slate-400 text-[10px] uppercase tracking-[0.3em] mb-8">Rate Question Difficulty</span>
                     <div className="flex justify-center gap-3">
                       {[1, 2, 3, 4, 5].map((star) => (

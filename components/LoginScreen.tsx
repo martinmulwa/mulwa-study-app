@@ -34,7 +34,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] flex items-center justify-center p-4 md:p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#F0F4F8] flex items-center justify-center p-4 md:p-6 relative overflow-hidden transition-colors duration-300">
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-200 rounded-full blur-[120px] opacity-40 animate-pulse"></div>
@@ -136,7 +136,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
       
       {/* Footer Credit */}
       <div className="absolute bottom-6 text-slate-400 text-xs font-bold uppercase tracking-[0.2em]">
-        MULWA 😎
+        MULWA <span className="text-slate-300">😎</span>
       </div>
     </div>
   );
