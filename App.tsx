@@ -293,12 +293,12 @@ const App: React.FC = () => {
       const progressPercent = ((quizState.currentQuestionIndex + 1) / activeSession.length) * 100;
 
       return (
-        <div className="min-h-screen flex flex-col max-w-5xl mx-auto md:px-6 bg-[#F8FAFC]">
+        <div className="min-h-screen flex flex-col max-w-5xl mx-auto md:px-6 bg-white">
           {/* Sticky Header */}
-          <div className="bg-white/90 backdrop-blur-xl border-b border-slate-200/60 px-4 py-4 sticky top-0 z-30 md:rounded-b-[2rem] md:mx-4 md:mt-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-30 md:mx-4 md:mt-4">
              <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setGameState(GameState.DASHBOARD)} className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-2xl transition-all active:scale-90">
+                  <button onClick={() => setGameState(GameState.DASHBOARD)} className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-all active:scale-90">
                     <RotateCcw size={20} />
                   </button>
                   <div className="hidden sm:flex flex-col">
@@ -308,18 +308,18 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 bg-amber-50 text-amber-600 px-4 py-2 rounded-2xl border border-amber-100 shadow-sm">
+                  <div className="flex items-center gap-2 bg-slate-50 text-amber-600 px-4 py-2 rounded-lg border border-slate-200">
                     <Sparkles size={16} className="animate-pulse" />
                     <span className="font-black text-sm">{quizState.streak}</span>
                   </div>
-                  <div className="flex items-center gap-2 bg-primary-50 text-primary-600 px-4 py-2 rounded-2xl border border-primary-100 shadow-sm">
+                  <div className="flex items-center gap-2 bg-slate-50 text-primary-600 px-4 py-2 rounded-lg border border-slate-200">
                     <Trophy size={16} />
                     <span className="font-black text-sm">{quizState.score}</span>
                   </div>
                 </div>
              </div>
-             <div className="relative h-3 bg-slate-100 rounded-full overflow-hidden">
-               <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 via-primary-400 to-accent-teal transition-all duration-700 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
+             <div className="relative h-1.5 bg-slate-100 rounded-full overflow-hidden">
+               <div className="absolute top-0 left-0 h-full bg-slate-900 transition-all duration-700 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
              </div>
           </div>
 
@@ -336,13 +336,12 @@ const App: React.FC = () => {
             />
           </div>
 
-          {/* Navigation Bar */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 md:p-8 flex justify-center items-center gap-4 bg-gradient-to-t from-white via-white/80 to-transparent z-40 pointer-events-none">
+          <div className="fixed bottom-0 left-0 right-0 p-4 md:p-8 flex justify-center items-center gap-4 bg-white/80 backdrop-blur-sm z-40 pointer-events-none border-t border-slate-100">
             <div className="flex items-center gap-3 pointer-events-auto">
               {quizState.currentQuestionIndex > 0 && (
                 <button
                   onClick={handleBackQuestion}
-                  className="bg-white text-slate-700 p-4 rounded-2xl font-bold shadow-xl border border-slate-200 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90"
+                  className="bg-white text-slate-700 p-4 rounded-lg font-bold shadow-sm border border-slate-200 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90"
                 >
                   <ChevronLeft size={24} />
                 </button>
@@ -351,10 +350,10 @@ const App: React.FC = () => {
               {showExplanation && (
                 <button
                   onClick={handleNextQuestion}
-                  className="bg-slate-900 text-white pl-8 pr-6 py-4 rounded-2xl font-black text-lg shadow-2xl shadow-slate-900/30 flex items-center gap-4 transition-all hover:scale-105 active:scale-95 animate-slide-up"
+                  className="bg-slate-900 text-white pl-8 pr-6 py-4 rounded-lg font-black text-lg shadow-lg flex items-center gap-4 transition-all hover:bg-slate-800 active:scale-95 animate-slide-up"
                 >
                   <span>{quizState.currentQuestionIndex + 1 === activeSession.length ? 'Finish Session' : 'Next Question'}</span>
-                  <div className="bg-white/20 rounded-xl p-1.5"><ChevronRight size={20} /></div>
+                  <div className="bg-white/10 rounded-lg p-1.5"><ChevronRight size={20} /></div>
                 </button>
               )}
             </div>
@@ -368,21 +367,20 @@ const App: React.FC = () => {
       const isSuccess = percentage >= 70;
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-slate-900/10 backdrop-blur-md">
-          <div className="bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden max-w-lg w-full relative animate-scale-in border border-white">
-            <div className={`p-12 text-center relative overflow-hidden ${isSuccess ? 'bg-gradient-to-br from-emerald-500 to-teal-600' : 'bg-gradient-to-br from-rose-500 to-orange-600'}`}>
-              <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] [background-size:20px_20px]"></div>
+        <div className="min-h-screen flex items-center justify-center p-4 bg-white">
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden max-w-lg w-full relative animate-scale-in">
+            <div className={`p-12 text-center relative overflow-hidden ${isSuccess ? 'bg-emerald-500' : 'bg-rose-500'}`}>
               <h1 className="text-7xl font-display font-black text-white mb-2 relative z-10">{percentage}%</h1>
               <p className="text-white/90 font-bold text-xl relative z-10">{isSuccess ? "Level Mastered!" : "Keep Pushing!"}</p>
             </div>
             
             <div className="p-10 space-y-6">
                <div className="grid grid-cols-2 gap-4">
-                 <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
+                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Correct</p>
                    <p className="text-2xl font-display font-bold text-emerald-600">{quizState.correctAnswers}</p>
                  </div>
-                 <div className="bg-slate-50 p-4 rounded-3xl border border-slate-100 text-center">
+                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">XP Earned</p>
                    <p className="text-2xl font-display font-bold text-primary-600">+{quizState.score}</p>
                  </div>
@@ -390,12 +388,10 @@ const App: React.FC = () => {
 
                <button 
                  onClick={() => setGameState(GameState.DASHBOARD)} 
-                 className="w-full bg-slate-900 text-white py-5 rounded-[1.5rem] font-black text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 active:scale-95"
+                 className="w-full bg-slate-900 text-white py-5 rounded-xl font-black text-lg hover:bg-slate-800 transition-all shadow-lg active:scale-95"
                >
                  Return to Dashboard
                </button>
-               
-               <p className="text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest opacity-0">MULWA 😎</p>
             </div>
           </div>
         </div>

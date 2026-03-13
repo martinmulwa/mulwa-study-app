@@ -61,13 +61,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
   const xpProgress = ((progress.xp % 500) / 500) * 100;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-10 pb-32 transition-colors duration-300">
+    <div className="min-h-screen bg-white p-4 md:p-10 pb-32">
       <div className="max-w-6xl mx-auto space-y-10 animate-slide-up">
         
         {/* Header Section */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
+            <div className="w-12 h-12 rounded-lg bg-slate-900 flex items-center justify-center text-white">
               <Users size={24} />
             </div>
             <div>
@@ -80,15 +80,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
         {/* Gamified Header Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* XP & Level Card */}
-          <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-primary-500 rounded-full blur-[80px] opacity-20 -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+          <div className="bg-slate-900 rounded-2xl p-8 text-white relative overflow-hidden group">
             <div className="relative z-10">
                <div className="flex justify-between items-start mb-6">
                  <div>
                    <h2 className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px] mb-1">Rank</h2>
                    <p className="text-2xl font-display font-black text-white">Level {progress.level}</p>
                  </div>
-                 <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-md">
+                 <div className="bg-white/10 p-3 rounded-lg backdrop-blur-md">
                    <Award className="text-amber-400" size={24} />
                  </div>
                </div>
@@ -98,8 +97,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                    <span>XP: {progress.xp % 500} / 500</span>
                    <span>{Math.round(xpProgress)}%</span>
                  </div>
-                 <div className="w-full bg-white/10 h-3 rounded-full overflow-hidden border border-white/5">
-                   <div className="bg-gradient-to-r from-primary-400 to-accent-teal h-full transition-all duration-1000" style={{ width: `${xpProgress}%` }}></div>
+                 <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden border border-white/5">
+                   <div className="bg-white h-full transition-all duration-1000" style={{ width: `${xpProgress}%` }}></div>
                  </div>
                  <p className="text-[10px] text-slate-500 font-bold italic">+{xpToNextLevel} XP to Level {progress.level + 1}</p>
                </div>
@@ -107,10 +106,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           </div>
 
           {/* Streak & Accuracy Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between group transition-colors duration-300">
+          <div className="bg-white rounded-2xl p-8 border border-slate-200 flex flex-col justify-between group">
              <div className="flex justify-between items-start mb-4">
                <h2 className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">Performance</h2>
-               <Flame className="text-orange-500 group-hover:animate-bounce" size={20} />
+               <Flame className="text-orange-500" size={20} />
              </div>
              <div className="grid grid-cols-2 gap-4">
                <div>
@@ -122,8 +121,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Solved</p>
                </div>
              </div>
-             <div className="mt-6 pt-6 border-t border-slate-50">
-               <div className="flex items-center gap-2 text-primary-600">
+             <div className="mt-6 pt-6 border-t border-slate-100">
+               <div className="flex items-center gap-2 text-slate-900">
                  <Target size={14} />
                  <span className="text-xs font-black uppercase tracking-widest">Accuracy Focus</span>
                </div>
@@ -131,7 +130,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           </div>
 
           {/* Focus Areas Card */}
-          <div className="bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col justify-between transition-colors duration-300">
+          <div className="bg-white rounded-2xl p-8 border border-slate-200 flex flex-col justify-between">
              <div>
                <h2 className="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px] mb-6 flex items-center gap-2">
                  <AlertCircle size={14} className="text-rose-500" /> Improvement Areas
@@ -143,8 +142,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                        <span className="text-xs font-black text-slate-700 truncate max-w-[140px] uppercase tracking-tight">{area.category}</span>
                        <span className="text-[10px] font-black text-rose-500 bg-rose-50 px-2 py-0.5 rounded-lg">{Math.round(area.accuracy)}%</span>
                      </div>
-                     <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                       <div className="bg-rose-400 h-full" style={{ width: `${area.accuracy}%` }}></div>
+                     <div className="w-full bg-slate-100 h-1 rounded-full overflow-hidden">
+                       <div className="bg-slate-900 h-full" style={{ width: `${area.accuracy}%` }}></div>
                      </div>
                    </div>
                  )) : (
@@ -217,30 +216,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                           onClick={() => isUnlocked && onSelectLevel(paper, level)}
                           disabled={!isUnlocked}
                           className={`
-                            relative group aspect-square rounded-[2rem] flex flex-col items-center justify-center border-4 transition-all duration-500
+                            relative group aspect-square rounded-2xl flex flex-col items-center justify-center border-2 transition-all duration-300
                             ${isCurrent 
-                              ? 'bg-primary-600 border-primary-400 text-white shadow-2xl shadow-primary-500/40 scale-110 z-10' 
+                              ? 'bg-slate-900 border-slate-900 text-white shadow-xl scale-105 z-10' 
                               : isCompleted 
-                                ? 'bg-white border-emerald-100 text-emerald-600 hover:border-emerald-300 hover:shadow-xl' 
+                                ? 'bg-white border-slate-200 text-slate-900 hover:border-slate-400' 
                                 : 'bg-slate-50 border-slate-100 text-slate-200 cursor-not-allowed'}
                           `}
                         >
                           <div className="absolute top-3 right-3">
-                            {isCompleted ? <Star size={14} fill="currentColor" /> : !isUnlocked ? <Lock size={14} /> : <Zap size={14} className="animate-pulse" />}
+                            {isCompleted ? <Star size={14} fill="currentColor" /> : !isUnlocked ? <Lock size={14} /> : <Zap size={14} />}
                           </div>
                           
-                          <span className={`text-4xl font-display font-black mb-1 ${isCurrent ? 'text-white' : isCompleted ? 'text-emerald-600' : 'text-slate-300'}`}>
+                          <span className={`text-4xl font-display font-black mb-1 ${isCurrent ? 'text-white' : isCompleted ? 'text-slate-900' : 'text-slate-300'}`}>
                             {level}
                           </span>
                           <span className="text-[10px] font-black uppercase tracking-widest opacity-60">
                             {isUnlocked ? 'Level' : 'Locked'}
                           </span>
-                          
-                          {isCurrent && (
-                            <div className="absolute -bottom-2 bg-amber-400 text-white text-[8px] font-black px-3 py-1 rounded-full shadow-lg uppercase tracking-widest">
-                              Active
-                            </div>
-                          )}
                         </button>
                       );
                     })}
@@ -253,18 +246,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Mnemonics */}
             <div className="lg:col-span-2 space-y-10">
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
+              <div className="bg-white rounded-2xl p-10 border border-slate-200">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
-                  <div className="bg-amber-100 p-2 rounded-xl text-amber-600">
+                  <div className="bg-slate-100 p-2 rounded-lg text-slate-900">
                     <Lightbulb size={20} />
                   </div>
                   Master Mnemonics
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {MNEMONICS.map((m, i) => (
-                    <div key={i} className="p-6 rounded-3xl bg-slate-50 border-2 border-transparent hover:border-primary-200 hover:bg-white transition-all duration-300 group">
-                      <p className="text-[10px] font-black text-primary-500 uppercase tracking-[0.2em] mb-2">{m.topic}</p>
-                      <p className="text-xl font-display font-black text-slate-900 group-hover:text-primary-700 transition-colors mb-3">"{m.mnemonic}"</p>
+                    <div key={i} className="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-300 hover:bg-white transition-all duration-300 group">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">{m.topic}</p>
+                      <p className="text-xl font-display font-black text-slate-900 group-hover:text-slate-900 transition-colors mb-3">"{m.mnemonic}"</p>
                       <p className="text-xs text-slate-500 font-medium leading-relaxed">{m.meaning}</p>
                     </div>
                   ))}
@@ -272,22 +265,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
               </div>
 
               {/* Study Schedule */}
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
+              <div className="bg-white rounded-2xl p-10 border border-slate-200">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
-                  <div className="bg-primary-100 p-2 rounded-xl text-primary-600">
+                  <div className="bg-slate-100 p-2 rounded-lg text-slate-900">
                     <Calendar size={20} />
                   </div>
                   4-Week Study Schedule
                 </h3>
                 <div className="space-y-8">
                   {Object.entries(STUDY_SCHEDULE).map(([week, data]) => (
-                    <div key={week} className="relative pl-8 border-l-4 border-primary-100 space-y-4">
-                      <div className="absolute -left-[10px] top-0 w-4 h-4 rounded-full bg-primary-500 border-4 border-white shadow-sm"></div>
+                    <div key={week} className="relative pl-8 border-l-2 border-slate-100 space-y-4">
+                      <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-slate-900"></div>
                       <h4 className="font-black text-slate-900 uppercase text-xs tracking-[0.2em]">{week.replace('week', 'Week ')}: {data.title}</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {data.days.map((d, i) => (
-                          <div key={i} className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-md transition-all">
-                            <span className="text-[10px] font-black bg-white px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 shrink-0">Day {d.day}</span>
+                          <div key={i} className="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100 hover:bg-white hover:border-slate-300 transition-all">
+                            <span className="text-[10px] font-black bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-slate-500 shrink-0">Day {d.day}</span>
                             <span className="text-xs text-slate-700 font-bold">{d.topics}</span>
                           </div>
                         ))}
@@ -300,10 +293,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
 
             {/* Sidebar Tools */}
             <div className="space-y-10">
-              <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden">
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent-teal rounded-full blur-[60px] opacity-20 -mb-16 -mr-16"></div>
+              <div className="bg-slate-900 rounded-2xl p-10 text-white relative overflow-hidden">
                 <h3 className="text-2xl font-display font-black mb-8 flex items-center gap-3">
-                  <Brain className="text-accent-teal" size={24} />
+                  <Brain className="text-white" size={24} />
                   Leitner System
                 </h3>
                 <p className="text-sm text-slate-400 mb-8 leading-relaxed font-medium">
@@ -311,8 +303,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 </p>
                 <div className="space-y-4">
                   {LEITNER_SYSTEM.map((box) => (
-                    <div key={box.box} className="flex items-center gap-5 bg-white/5 p-5 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center font-black text-xl text-accent-teal border border-white/5">
+                    <div key={box.box} className="flex items-center gap-5 bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                      <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center font-black text-xl text-white border border-white/5">
                         {box.box}
                       </div>
                       <div>
@@ -324,19 +316,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                 </div>
               </div>
 
-              <div className="bg-white rounded-[2.5rem] p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 transition-colors duration-300">
+              <div className="bg-white rounded-2xl p-10 border border-slate-200">
                 <h3 className="text-2xl font-display font-black text-slate-900 mb-8 flex items-center gap-3">
-                  <Zap className="text-primary-600" size={24} />
+                  <Zap className="text-slate-900" size={24} />
                   Techniques
                 </h3>
                 <div className="space-y-6">
                   {STUDY_TECHNIQUES.map((tech, i) => (
                     <div key={i} className="group">
                       <div className="font-black text-slate-900 mb-2 flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary-500"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-slate-900"></div>
                         {tech.name}
                       </div>
-                      <p className="text-xs text-slate-500 font-medium leading-relaxed pl-3.5 border-l border-slate-100 group-hover:border-primary-200 transition-colors">{tech.description}</p>
+                      <p className="text-xs text-slate-500 font-medium leading-relaxed pl-3.5 border-l border-slate-100 group-hover:border-slate-300 transition-colors">{tech.description}</p>
                     </div>
                   ))}
                 </div>
@@ -347,20 +339,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           <div className="space-y-10 animate-slide-up">
             <div className="flex items-center justify-between">
               <h3 className="text-2xl font-display font-black text-slate-900 flex items-center gap-3">
-                <div className="bg-rose-100 p-2 rounded-xl text-rose-600">
+                <div className="bg-slate-100 p-2 rounded-lg text-slate-900">
                   <ShieldCheck size={20} />
                 </div>
                 Admin Dashboard
               </h3>
-              <div className="bg-white px-4 py-2 rounded-2xl border border-slate-200 shadow-sm">
+              <div className="bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm">
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Guests: </span>
-                <span className="text-sm font-black text-rose-600">{guests.length}</span>
+                <span className="text-sm font-black text-slate-900">{guests.length}</span>
               </div>
             </div>
 
             {/* Admin Stats Visualization */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 transition-colors duration-300">
+              <div className="bg-white p-8 rounded-2xl border border-slate-200">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
                   <BarChart3 size={14} /> Login Frequency (Last 10)
                 </h4>
@@ -371,16 +363,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                       <XAxis dataKey="username" hide />
                       <YAxis hide />
                       <Tooltip 
-                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: '#ffffff', color: '#0f172a' }}
+                        contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: 'none', backgroundColor: '#ffffff', color: '#0f172a' }}
                         cursor={{ fill: '#f8fafc' }}
                       />
-                      <Bar dataKey="timestamp" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="timestamp" fill="#0f172a" radius={[2, 2, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
               </div>
               
-              <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 transition-colors duration-300">
+              <div className="bg-white p-8 rounded-2xl border border-slate-200">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
                   <Users size={14} /> Unique Users
                 </h4>
@@ -400,11 +392,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                         dataKey="value"
                       >
                         {guests.map((_, index) => (
-                          <Cell key={`cell-${index}`} fill={['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'][index % 5]} />
+                          <Cell key={`cell-${index}`} fill={['#0f172a', '#334155', '#475569', '#64748b', '#94a3b8'][index % 5]} />
                         ))}
                       </Pie>
                       <Tooltip 
-                        contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: '#ffffff', color: '#0f172a' }}
+                        contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: 'none', backgroundColor: '#ffffff', color: '#0f172a' }}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -413,10 +405,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
             </div>
 
             {/* Logs Table */}
-            <div className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 transition-colors duration-300">
-              <div className="p-8 border-b border-slate-50 flex justify-between items-center">
+            <div className="bg-white rounded-2xl overflow-hidden border border-slate-200">
+              <div className="p-8 border-b border-slate-100 flex justify-between items-center">
                 <h4 className="text-xs font-black uppercase tracking-widest text-slate-400">Guest Login Details</h4>
-                {isLoadingGuests && <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary-500 border-t-transparent"></div>}
+                {isLoadingGuests && <div className="animate-spin rounded-full h-4 w-4 border-2 border-slate-900 border-t-transparent"></div>}
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
@@ -430,10 +422,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
                   </thead>
                   <tbody>
                     {guests.length > 0 ? [...guests].reverse().map((guest, i) => (
-                      <tr key={i} className="border-t border-slate-50 hover:bg-slate-50/50 transition-colors">
+                      <tr key={i} className="border-t border-slate-100 hover:bg-slate-50 transition-colors">
                         <td className="p-6">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-black text-xs">
+                            <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-900 flex items-center justify-center font-black text-xs">
                               {guest.username[0].toUpperCase()}
                             </div>
                             <span className="text-sm font-black text-slate-700">{guest.username}</span>
