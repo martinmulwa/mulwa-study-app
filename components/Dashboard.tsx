@@ -1,7 +1,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { UserProgress } from '../types';
-import { PAPER_LEVELS, PAPER_TOTAL_LEVELS, TOPICS_BY_SECTION, QUESTIONS } from '../data/questions';
+import { PAPER_LEVELS, PAPER_TOTAL_LEVELS, DRILLS_HIERARCHY, QUESTIONS } from '../data/questions';
 import { MNEMONICS, STUDY_SCHEDULE, STUDY_TECHNIQUES, LEITNER_SYSTEM } from '../data/toolkit';
 import { Lock, Zap, TrendingUp, AlertCircle, BookOpen, Star, Trash2, Calendar, Lightbulb, Brain, ChevronRight, Award, Flame, Target, ShieldCheck, Users, BarChart3, Clock, MapPin, PlayCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
@@ -291,41 +291,59 @@ export const Dashboard: React.FC<DashboardProps> = ({ username, progress, onSele
           </div>
         ) : activeTab === 'drills' ? (
           <div className="space-y-16">
-            {Object.entries(TOPICS_BY_SECTION).map(([section, topics]) => (
-              <div key={section} className="space-y-8">
+            {Object.entries(DRILLS_HIERARCHY).map(([section, units]) => (
+              <div key={section} className="space-y-12">
                 <div className="border-b border-slate-200 pb-4">
-                  <h2 className="text-3xl font-display font-black text-slate-900 tracking-tight">{section} Drills</h2>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mt-2">Random 10 Questions per Drill</p>
+                  <h2 className="text-4xl font-display font-black text-slate-900 tracking-tight">{section} Drills</h2>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mt-2">Grouped by Unit & Topic</p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {topics.map((topic) => (
-                    <button
-                      key={topic}
-                      onClick={() => onSelectTopic(topic)}
-                      className="bg-white p-8 rounded-[2rem] text-left hover:bg-slate-900 hover:text-white transition-all duration-300 group shadow-sm hover:shadow-xl"
-                    >
-                      <div className="flex justify-between items-start mb-6">
-                        <div className="bg-slate-50 group-hover:bg-white/10 p-4 rounded-2xl transition-colors">
-                          <BookOpen size={24} className="text-slate-900 group-hover:text-white" />
-                        </div>
-                        <div className="bg-slate-50 group-hover:bg-white/10 px-4 py-2 rounded-xl transition-colors">
-                          <span className="text-[10px] font-black uppercase tracking-widest">Start Drill</span>
-                        </div>
-                      </div>
-                      <h4 className="text-xl font-display font-black mb-2 tracking-tight">{topic}</h4>
-                      <p className="text-[10px] font-black text-slate-400 group-hover:text-slate-400 uppercase tracking-widest">Topic Mastery Drill</p>
-                      
-                      <div className="mt-8 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <PlayCircle size={16} className="text-accent-teal" />
-                          <span className="text-[10px] font-black uppercase tracking-widest">10 Questions</span>
-                        </div>
-                        <ChevronRight size={20} className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0" />
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                {Object.entries(units).map(([unit, topics]) => (
+                  <div key={unit} className="space-y-6">
+                    <h3 className="text-xl font-display font-black text-slate-800 flex items-center gap-3">
+                      <span className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center text-slate-900 text-xs">
+                        {unit.charAt(0)}
+                      </span>
+                      {unit}
+                    </h3>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {Object.entries(topics).map(([topic, subtopics]) => (
+                        <button
+                          key={topic}
+                          onClick={() => onSelectTopic(topic)}
+                          className="bg-white p-8 rounded-[2rem] text-left hover:bg-slate-900 hover:text-white transition-all duration-300 group shadow-sm hover:shadow-xl relative overflow-hidden"
+                        >
+                          <div className="flex justify-between items-start mb-6">
+                            <div className="bg-slate-50 group-hover:bg-white/10 p-4 rounded-2xl transition-colors">
+                              <BookOpen size={24} className="text-slate-900 group-hover:text-white" />
+                            </div>
+                            <div className="bg-slate-50 group-hover:bg-white/10 px-4 py-2 rounded-xl transition-colors">
+                              <span className="text-[10px] font-black uppercase tracking-widest">Start Drill</span>
+                            </div>
+                          </div>
+                          <h4 className="text-xl font-display font-black mb-2 tracking-tight">{topic}</h4>
+                          <div className="flex flex-wrap gap-2 mt-4">
+                            {Array.from(subtopics).slice(0, 3).map(st => (
+                              <span key={st} className="text-[8px] font-black uppercase tracking-widest bg-slate-50 group-hover:bg-white/10 px-2 py-1 rounded-md transition-colors">
+                                {st}
+                              </span>
+                            ))}
+                            {subtopics.size > 3 && <span className="text-[8px] font-black uppercase tracking-widest opacity-50">+{subtopics.size - 3} more</span>}
+                          </div>
+                          
+                          <div className="mt-8 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <PlayCircle size={16} className="text-accent-teal" />
+                              <span className="text-[10px] font-black uppercase tracking-widest">10 Questions</span>
+                            </div>
+                            <ChevronRight size={20} className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0" />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>

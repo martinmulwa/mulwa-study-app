@@ -995,27 +995,39 @@ const ALL_RAW_QUESTIONS = [
   ...NCK_KRN_PAPER
 ];
 
-const NUM_PAPERS = 5;
-const QS_PER_PAPER = Math.ceil(ALL_RAW_QUESTIONS.length / NUM_PAPERS);
+const introUnits = ["Anatomy & Physiology", "Nursing Fundamentals", "Community Health"];
 
-export const QUESTIONS: Question[] = ALL_RAW_QUESTIONS.map((q, index) => {
+const introRaw = ALL_RAW_QUESTIONS.filter(q => 
+  introUnits.includes(q.unit) || q.topic.toLowerCase().includes("nutrition")
+);
+
+const block1Raw = ALL_RAW_QUESTIONS.filter(q => 
+  !introUnits.includes(q.unit) && !q.topic.toLowerCase().includes("nutrition")
+);
+
+const QS_PER_PAPER = 100;
+
+const mappedIntro = introRaw.map((q, index) => {
   const paperNum = Math.floor(index / QS_PER_PAPER) + 1;
-  
-  // Determine section based on unit if not explicitly set correctly
-  let section = q.section;
-  if (q.unit === "Anatomy & Physiology" || q.unit === "Nursing Fundamentals") {
-    section = "Introductory Block";
-  } else {
-    section = "Block 1";
-  }
-
   return {
     ...q,
-    category: q.topic, // Ensure category is populated
-    section,
-    sourcePaper: `Paper ${paperNum}`
+    category: q.topic,
+    section: "Introductory Block",
+    sourcePaper: `Intro Paper ${paperNum}`
   } as Question;
 });
+
+const mappedBlock1 = block1Raw.map((q, index) => {
+  const paperNum = Math.floor(index / QS_PER_PAPER) + 1;
+  return {
+    ...q,
+    category: q.topic,
+    section: "Block 1",
+    sourcePaper: `Block 1 Paper ${paperNum}`
+  } as Question;
+});
+
+export const QUESTIONS: Question[] = [...mappedIntro, ...mappedBlock1];
 
 // Group by paper
 export const QUESTIONS_BY_PAPER: Record<string, Question[]> = {};
@@ -1102,7 +1114,16 @@ Object.entries(QUESTIONS_BY_PAPER).forEach(([paper, questions]) => {
 export const TOTAL_LEVELS = Math.max(...Object.values(PAPER_TOTAL_LEVELS));
 export const PAPER_LEVELS: Record<string, Record<number, Question[]>> = {};
 
-// Export unique topics for drills
+// Export hierarchical structure for drills
+export const DRILLS_HIERARCHY = QUESTIONS.reduce((acc, q) => {
+  const { section, unit, topic, subtopic } = q;
+  if (!acc[section]) acc[section] = {};
+  if (!acc[section][unit]) acc[section][unit] = {};
+  if (!acc[section][unit][topic]) acc[section][unit][topic] = new Set<string>();
+  acc[section][unit][topic].add(subtopic);
+  return acc;
+}, {} as Record<string, Record<string, Record<string, Set<string>>>>);
+
 export const ALL_TOPICS = Array.from(new Set(QUESTIONS.map(q => q.topic))).sort();
 export const TOPICS_BY_SECTION = {
   "Introductory Block": Array.from(new Set(QUESTIONS.filter(q => q.section === "Introductory Block").map(q => q.topic))).sort(),
