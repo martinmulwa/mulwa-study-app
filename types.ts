@@ -9,13 +9,18 @@ export type KRNUnit =
   | "Leadership & Management" 
   | "Anatomy & Physiology";
 
+export type KRNSection = "Introductory Block" | "Block 1";
+
 export interface Question {
   id: string;
   text: string;
   options: string[];
   correctAnswerIndex: number;
-  category: string;
+  unit: KRNUnit;
   topic: string;
+  category?: string; // Made optional to support dynamic population
+  subtopic: string;
+  section: KRNSection;
   sourcePaper: string;
   explanation: string;
   memoryTip?: string;

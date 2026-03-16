@@ -142,6 +142,28 @@ const App: React.FC = () => {
     resetQuestionState();
   };
 
+  const handleSelectTopic = (topic: string) => {
+    // Filter questions by topic and pick 10 random ones
+    const topicQs = QUESTIONS.filter(q => q.topic === topic);
+    const shuffled = [...topicQs].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 10);
+    
+    setActiveSession(selected);
+    setCurrentPaper(`Drill: ${topic}`);
+    setCurrentLevelId(1);
+    setGameState(GameState.PLAYING);
+    setQuizState({
+      currentQuestionIndex: 0,
+      score: 0,
+      streak: 0,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      isFinished: false,
+      history: []
+    });
+    resetQuestionState();
+  };
+
   const resetQuestionState = () => {
     setSelectedOption(null);
     setShowExplanation(false);
@@ -285,7 +307,7 @@ const App: React.FC = () => {
     if (gameState === GameState.LOGIN) return <LoginScreen onLogin={handleLogin} />;
 
     if (gameState === GameState.DASHBOARD) {
-      return <Dashboard username={currentUser || ''} progress={userProgress} onSelectLevel={startLevel} onResetProgress={handleResetProgress} />;
+      return <Dashboard username={currentUser || ''} progress={userProgress} onSelectLevel={startLevel} onSelectTopic={handleSelectTopic} onResetProgress={handleResetProgress} />;
     }
 
     if (gameState === GameState.PLAYING) {
@@ -293,37 +315,40 @@ const App: React.FC = () => {
       const progressPercent = ((quizState.currentQuestionIndex + 1) / activeSession.length) * 100;
 
       return (
-        <div className="min-h-screen flex flex-col max-w-5xl mx-auto md:px-6 bg-white">
-          {/* Sticky Header */}
-          <div className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-30 md:mx-4 md:mt-4">
-             <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setGameState(GameState.DASHBOARD)} className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition-all active:scale-90">
+        <div className="min-h-screen flex flex-col max-w-7xl mx-auto bg-white">
+          {/* Sticky Header - Modern Flat */}
+          <div className="bg-white/80 backdrop-blur-xl border-b border-slate-50 px-6 py-6 sticky top-0 z-30">
+             <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center gap-4">
+                  <button 
+                    onClick={() => setGameState(GameState.DASHBOARD)} 
+                    className="p-4 bg-slate-900 text-white rounded-2xl transition-all active:scale-90 hover:bg-slate-800"
+                  >
                     <RotateCcw size={20} />
                   </button>
                   <div className="hidden sm:flex flex-col">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Level {currentLevelId}</span>
-                    <span className="text-xs font-bold text-slate-700">Question {quizState.currentQuestionIndex + 1} of {activeSession.length}</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Level {currentLevelId}</span>
+                    <span className="text-sm font-black text-slate-900">Question {quizState.currentQuestionIndex + 1} of {activeSession.length}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 bg-slate-50 text-amber-600 px-4 py-2 rounded-lg border border-slate-200">
-                    <Sparkles size={16} className="animate-pulse" />
-                    <span className="font-black text-sm">{quizState.streak}</span>
+                  <div className="flex items-center gap-3 bg-slate-50 px-5 py-3 rounded-2xl border border-slate-100">
+                    <Sparkles size={18} className="text-accent-amber animate-pulse" />
+                    <span className="font-black text-slate-900">{quizState.streak}</span>
                   </div>
-                  <div className="flex items-center gap-2 bg-slate-50 text-primary-600 px-4 py-2 rounded-lg border border-slate-200">
-                    <Trophy size={16} />
-                    <span className="font-black text-sm">{quizState.score}</span>
+                  <div className="flex items-center gap-3 bg-slate-50 px-5 py-3 rounded-2xl border border-slate-100">
+                    <Trophy size={18} className="text-primary-500" />
+                    <span className="font-black text-slate-900">{quizState.score}</span>
                   </div>
                 </div>
              </div>
-             <div className="relative h-1.5 bg-slate-100 rounded-full overflow-hidden">
-               <div className="absolute top-0 left-0 h-full bg-slate-900 transition-all duration-700 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
+             <div className="relative h-2 bg-slate-50 rounded-full overflow-hidden">
+               <div className="absolute top-0 left-0 h-full bg-slate-900 transition-all duration-1000 ease-out rounded-full" style={{ width: `${progressPercent}%` }}></div>
              </div>
           </div>
 
-          <div className="flex-1 p-4 md:p-10 flex flex-col items-center justify-start md:justify-center">
+          <div className="flex-1 px-6 py-12 md:px-12 flex flex-col items-center justify-start">
             <QuizCard 
               question={currentQ}
               onAnswer={handleAnswer}
@@ -336,12 +361,13 @@ const App: React.FC = () => {
             />
           </div>
 
-          <div className="fixed bottom-0 left-0 right-0 p-4 md:p-8 flex justify-center items-center gap-4 bg-white/80 backdrop-blur-sm z-40 pointer-events-none border-t border-slate-100">
-            <div className="flex items-center gap-3 pointer-events-auto">
+          {/* Navigation Controls */}
+          <div className="fixed bottom-10 left-0 right-0 px-6 flex justify-center items-center pointer-events-none z-40">
+            <div className="flex items-center gap-4 pointer-events-auto bg-white/40 backdrop-blur-2xl p-4 rounded-[2.5rem] border border-white/20 shadow-2xl">
               {quizState.currentQuestionIndex > 0 && (
                 <button
                   onClick={handleBackQuestion}
-                  className="bg-white text-slate-700 p-4 rounded-lg font-bold shadow-sm border border-slate-200 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90"
+                  className="bg-white text-slate-900 p-5 rounded-3xl font-black border border-slate-100 flex items-center justify-center transition-all hover:bg-slate-50 active:scale-90 shadow-sm"
                 >
                   <ChevronLeft size={24} />
                 </button>
@@ -350,10 +376,10 @@ const App: React.FC = () => {
               {showExplanation && (
                 <button
                   onClick={handleNextQuestion}
-                  className="bg-slate-900 text-white pl-8 pr-6 py-4 rounded-lg font-black text-lg shadow-lg flex items-center gap-4 transition-all hover:bg-slate-800 active:scale-95 animate-slide-up"
+                  className="bg-slate-900 text-white pl-10 pr-8 py-5 rounded-3xl font-black text-lg flex items-center gap-6 transition-all hover:bg-slate-800 active:scale-95 animate-slide-up shadow-xl"
                 >
                   <span>{quizState.currentQuestionIndex + 1 === activeSession.length ? 'Finish Session' : 'Next Question'}</span>
-                  <div className="bg-white/10 rounded-lg p-1.5"><ChevronRight size={20} /></div>
+                  <div className="bg-white/10 rounded-xl p-2"><ChevronRight size={24} /></div>
                 </button>
               )}
             </div>
@@ -367,30 +393,36 @@ const App: React.FC = () => {
       const isSuccess = percentage >= 70;
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-white">
-          <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden max-w-lg w-full relative animate-scale-in">
-            <div className={`p-12 text-center relative overflow-hidden ${isSuccess ? 'bg-emerald-500' : 'bg-rose-500'}`}>
-              <h1 className="text-7xl font-display font-black text-white mb-2 relative z-10">{percentage}%</h1>
-              <p className="text-white/90 font-bold text-xl relative z-10">{isSuccess ? "Level Mastered!" : "Keep Pushing!"}</p>
+        <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50">
+          <div className="bg-white rounded-[3rem] shadow-2xl overflow-hidden max-w-xl w-full animate-scale-in">
+            <div className={`p-16 text-center relative overflow-hidden ${isSuccess ? 'bg-emerald-500' : 'bg-rose-500'}`}>
+              <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                <div className="absolute -top-20 -left-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+              </div>
+              <h1 className="text-8xl font-display font-black text-white mb-4 relative z-10 tracking-tighter">{percentage}%</h1>
+              <p className="text-white/90 font-black text-2xl relative z-10 uppercase tracking-widest">
+                {isSuccess ? "Mastered" : "Try Again"}
+              </p>
             </div>
             
-            <div className="p-10 space-y-6">
-               <div className="grid grid-cols-2 gap-4">
-                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
-                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Correct</p>
-                   <p className="text-2xl font-display font-bold text-emerald-600">{quizState.correctAnswers}</p>
+            <div className="p-12 space-y-10">
+               <div className="grid grid-cols-2 gap-6">
+                 <div className="bg-slate-50 p-8 rounded-[2rem] text-center">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-3">Correct</p>
+                   <p className="text-4xl font-display font-black text-slate-900">{quizState.correctAnswers}</p>
                  </div>
-                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
-                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">XP Earned</p>
-                   <p className="text-2xl font-display font-bold text-primary-600">+{quizState.score}</p>
+                 <div className="bg-slate-50 p-8 rounded-[2rem] text-center">
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-3">XP Gained</p>
+                   <p className="text-4xl font-display font-black text-primary-500">+{quizState.score}</p>
                  </div>
                </div>
 
                <button 
                  onClick={() => setGameState(GameState.DASHBOARD)} 
-                 className="w-full bg-slate-900 text-white py-5 rounded-xl font-black text-lg hover:bg-slate-800 transition-all shadow-lg active:scale-95"
+                 className="w-full bg-slate-900 text-white py-6 rounded-3xl font-black text-xl hover:bg-slate-800 transition-all shadow-xl active:scale-95 uppercase tracking-widest"
                >
-                 Return to Dashboard
+                 Continue Journey
                </button>
             </div>
           </div>
@@ -402,13 +434,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-white">
       {renderView()}
       {/* Standard Footer Watermark */}
-      <footer className="py-8 text-center bg-slate-50 border-t border-slate-100">
-        <div className="inline-flex items-center gap-2 px-6 py-2 bg-white/40 backdrop-blur-md border border-white/20 rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all hover:bg-white/60">
-          <span className="text-slate-400 text-[9px] font-black uppercase tracking-[0.5em] leading-none">
-            MULWA <span className="text-slate-300">😎</span>
+      <footer className="py-12 text-center bg-white">
+        <div className="inline-flex items-center gap-3 px-8 py-3 bg-slate-50 rounded-full transition-all hover:bg-slate-100">
+          <span className="text-slate-400 text-[10px] font-black uppercase tracking-[0.6em] leading-none">
+            MULWA <span className="text-slate-300">😎</span> STUDY
           </span>
         </div>
       </footer>

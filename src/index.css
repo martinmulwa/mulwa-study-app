@@ -5,36 +5,37 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  --color-primary-50: #f8fafc;
+  --color-primary-100: #f1f5f9;
+  --color-primary-200: #e2e8f0;
+  --color-primary-300: #cbd5e1;
+  --color-primary-400: #94a3b8;
+  --color-primary-500: #64748b;
+  --color-primary-600: #475569;
+  --color-primary-700: #334155;
+  --color-primary-800: #1e293b;
+  --color-primary-900: #0f172a;
 
-  --color-accent-teal: #2dd4bf;
+  --color-accent-teal: #14b8a6;
   --color-accent-coral: #f43f5e;
-  --color-accent-violet: #8b5cf6;
+  --color-accent-violet: #7c3aed;
   --color-accent-amber: #f59e0b;
+  --color-accent-indigo: #4f46e5;
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
   @keyframes slideUp {
-    0% { transform: translateY(30px); opacity: 0; }
+    0% { transform: translateY(20px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
   @keyframes slideDown {
-    0% { transform: translateY(-20px); opacity: 0; }
+    0% { transform: translateY(-10px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
   @keyframes scaleIn {
-    0% { transform: scale(0.95); opacity: 0; }
+    0% { transform: scale(0.98); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
   @keyframes shake {
@@ -46,52 +47,50 @@
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-slide-up: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-slide-down: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-scale-in: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-scale-in: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-shake: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 @layer base {
   :root {
-    --primary: #2563eb;
+    --primary: #0f172a;
   }
   
   body {
-    @apply bg-white antialiased text-slate-900;
+    @apply bg-slate-50 antialiased text-slate-900 selection:bg-slate-900 selection:text-white;
     -webkit-tap-highlight-color: transparent;
   }
 
   /* Smooth transitions for all elements */
   * {
-    @apply transition-all duration-150 ease-in-out;
+    @apply transition-all duration-200 ease-out;
   }
 
   /* Prevent text selection on buttons */
   button {
-    @apply select-none;
+    @apply select-none cursor-pointer;
   }
 }
 
 @layer components {
+  .flat-card {
+    @apply bg-white rounded-3xl border-none shadow-none;
+  }
+  
+  .bento-grid {
+    @apply grid gap-4 md:gap-6;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #e2e8f0;
-    border-radius: 20px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #cbd5e1;
-    background-clip: content-box;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
+    border-radius: 20px;
   }
 }
